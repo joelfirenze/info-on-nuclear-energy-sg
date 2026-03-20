@@ -1,0 +1,2495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuclear Safety Explorer — Understanding Reactor Safety</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ============================================================
+   Nuclear Safety Explorer — Design System
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0f172a;
+  --navy-light: #1e293b;
+  --blue: #2563eb;
+  --blue-light: #3b82f6;
+  --green: #059669;
+  --green-light: #10b981;
+  --amber: #d97706;
+  --amber-light: #f59e0b;
+  --purple: #7c3aed;
+  --purple-light: #8b5cf6;
+  --red: #dc2626;
+  --red-light: #ef4444;
+  --teal: #0d9488;
+  --cyan: #0891b2;
+  --slate: #64748b;
+  --slate-light: #94a3b8;
+  --white: #ffffff;
+  --off-white: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+  --transition: 0.2s ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--off-white);
+  color: var(--navy);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* --- Header --- */
+.site-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a1a3e 100%);
+  color: var(--white);
+  padding: 32px 0;
+  border-bottom: 3px solid var(--green);
+}
+
+.header-inner { display: flex; flex-direction: column; gap: 4px; }
+
+.logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 700; }
+.logo-icon { font-size: 1.8rem; }
+.logo-sg { color: var(--green-light); font-weight: 600; }
+
+.header-subtitle { font-size: 0.875rem; color: var(--slate-light); margin-top: 2px; }
+
+/* --- Navigation --- */
+.section-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+
+.nav-inner {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 8px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-btn {
+  background: none;
+  border: 2px solid transparent;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--slate);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+
+.nav-btn:hover { color: var(--green); background: var(--gray-100); }
+
+.nav-btn.active {
+  color: var(--green);
+  background: #ecfdf5;
+  border-color: var(--green);
+}
+
+/* --- Panels --- */
+.main-content { padding: 32px 24px; }
+
+.panel {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 24px;
+}
+
+.panel.hidden { display: none; }
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.section-desc {
+  color: var(--slate);
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+  max-width: 750px;
+  line-height: 1.7;
+}
+
+.subsection-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy-light);
+  margin: 28px 0 16px;
+}
+
+/* --- Radiation Type Cards --- */
+.radiation-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.radiation-card {
+  background: var(--gray-100);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.radiation-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.radiation-card.active {
+  border-color: var(--blue);
+  background: #eff6ff;
+  box-shadow: var(--shadow-md);
+}
+
+.radiation-card.active[data-type="alpha"] { border-color: var(--red); background: #fef2f2; }
+.radiation-card.active[data-type="beta"] { border-color: var(--blue); background: #eff6ff; }
+.radiation-card.active[data-type="gamma"] { border-color: var(--purple); background: #f5f3ff; }
+.radiation-card.active[data-type="neutron"] { border-color: var(--amber); background: #fffbeb; }
+
+.rad-symbol {
+  font-size: 2.5rem;
+  font-weight: 800;
+  display: block;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.rad-name { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+.rad-particle { font-size: 0.75rem; color: var(--slate); }
+
+/* --- Penetration Diagram (Redesigned with Scale) --- */
+.penetration-demo {
+  background: var(--gray-100);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.penetration-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--slate);
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.penetration-subtitle {
+  font-size: 0.78rem;
+  color: var(--slate-light);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Source label on the left */
+.pen-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 6px;
+  position: relative;
+}
+
+.pen-source {
+  width: 90px;
+  flex-shrink: 0;
+  text-align: right;
+  padding-right: 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.pen-source .pen-source-sub {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--slate);
+  display: block;
+}
+
+.pen-track {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  height: 44px;
+  position: relative;
+  border-radius: 4px;
+  overflow: visible;
+}
+
+.pen-barrier {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--white);
+  text-align: center;
+  line-height: 1.2;
+  position: relative;
+  transition: opacity 0.3s ease;
+  padding: 2px 2px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.pen-barrier-label {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pen-barrier .pen-thickness {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  color: var(--slate);
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* Arrow traveling through barriers */
+.pen-arrow-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 5;
+  transition: width 0.5s ease;
+}
+
+.pen-arrow-line {
+  height: 3px;
+  width: 100%;
+  border-radius: 2px;
+  position: relative;
+}
+
+.pen-arrow-line::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: -5px;
+  width: 0; height: 0;
+  border-left: 8px solid currentColor;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+/* Stopped marker */
+.pen-stopped {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pen-stopped-x {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--white);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.pen-passes {
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+  z-index: 6;
+}
+
+/* Barrier header row */
+.pen-header-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  margin-bottom: 4px;
+  padding-left: 90px;
+}
+
+.pen-header-cell {
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.3;
+  padding: 0 1px;
+  min-width: 0;
+}
+
+.pen-header-cell .pen-header-thickness {
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--slate-light);
+  display: block;
+}
+
+/* Scale bar */
+.pen-scale {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 12px 16px;
+  background: var(--white);
+  border-radius: 6px;
+  flex-wrap: wrap;
+}
+
+.pen-scale-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--slate);
+}
+
+.pen-scale-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+/* Reactor shielding section */
+.reactor-shielding {
+  margin-top: 28px;
+}
+
+.reactor-shield-diagram {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 24px;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.reactor-shield-diagram h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--green-light);
+}
+
+.reactor-shield-diagram > p {
+  font-size: 0.82rem;
+  color: var(--slate-light);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.shield-layers-visual {
+  display: flex;
+  align-items: stretch;
+  height: auto;
+  gap: 0;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.shield-layer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  min-height: 100px;
+}
+
+.shield-layer:hover { filter: brightness(1.15); }
+.shield-layer.active { filter: brightness(1.25); outline: 2px solid var(--white); outline-offset: -2px; }
+
+.shield-layer-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.shield-layer-dim {
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.shield-layer-icons {
+  margin-top: 6px;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.shield-stops-badge {
+  font-size: 0.55rem;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+}
+
+.shield-detail-box {
+  background: rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 0.82rem;
+  color: var(--slate-light);
+  line-height: 1.7;
+  min-height: 60px;
+}
+
+.shield-detail-box h5 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.shield-detail-box strong { color: var(--green-light); }
+
+/* Scale comparison cards */
+.scale-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.scale-card {
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+  border: 2px solid var(--gray-200);
+}
+
+.scale-card-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.scale-card-label {
+  font-size: 0.7rem;
+  color: var(--slate);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+.scale-card-compare {
+  font-size: 0.68rem;
+  color: var(--blue);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.rad-info-box {
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  border-left: 4px solid var(--gray-300);
+  margin-top: 16px;
+  transition: all 0.3s ease;
+}
+
+.rad-info-box h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.rad-info-box p { font-size: 0.88rem; color: var(--slate); line-height: 1.7; }
+.rad-info-box .rad-properties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+.rad-prop { background: var(--gray-100); border-radius: 6px; padding: 10px 12px; }
+.rad-prop-label { font-size: 0.7rem; color: var(--slate); text-transform: uppercase; letter-spacing: 0.04em; }
+.rad-prop-value { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-top: 2px; }
+
+/* --- Defense in Depth --- */
+.defense-layers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 24px 0;
+}
+
+.defense-ring {
+  border-radius: var(--radius);
+  padding: 16px 24px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.defense-ring:hover { transform: translateX(4px); }
+
+.defense-ring.active {
+  box-shadow: var(--shadow-md);
+  transform: translateX(8px);
+}
+
+.ring-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.ring-content { flex: 1; }
+.ring-title { font-weight: 700; font-size: 0.95rem; }
+.ring-subtitle { font-size: 0.8rem; color: var(--slate); margin-top: 2px; }
+
+.defense-detail {
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-top: 16px;
+  min-height: 120px;
+}
+
+.defense-detail h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+.defense-detail p { font-size: 0.9rem; color: var(--slate); line-height: 1.7; margin-bottom: 8px; }
+
+/* --- Safety Concepts --- */
+.concept-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.concept-tab {
+  padding: 10px 20px;
+  border: 2px solid var(--gray-200);
+  background: var(--gray-100);
+  border-radius: 24px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--slate);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.concept-tab:hover { border-color: var(--teal); color: var(--teal); }
+.concept-tab.active { border-color: var(--teal); background: #f0fdfa; color: var(--teal); }
+
+.concept-content {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.concept-content.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.concept-header { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px; }
+
+.concept-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.concept-text h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+.concept-text p { font-size: 0.9rem; color: var(--slate); line-height: 1.7; }
+
+.physics-box {
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin-top: 16px;
+  border-left: 4px solid var(--teal);
+}
+
+.physics-box h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; color: var(--teal); }
+.physics-box p { font-size: 0.88rem; color: var(--slate); line-height: 1.7; }
+
+/* --- Interactive Demo Panels --- */
+.demo-panel {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 24px;
+  color: var(--white);
+  margin-top: 20px;
+}
+
+.demo-panel h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; color: var(--green-light); }
+
+.temp-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.temp-slider-row label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--slate-light);
+  min-width: 100px;
+}
+
+.temp-slider-row input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #334155;
+  border-radius: 3px;
+  outline: none;
+}
+
+.temp-slider-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--green-light);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.temp-value {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--green-light);
+  min-width: 70px;
+  text-align: right;
+}
+
+.reactivity-bar-container {
+  background: #334155;
+  border-radius: 6px;
+  height: 32px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.reactivity-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.reactivity-label {
+  font-size: 0.78rem;
+  color: var(--slate-light);
+  margin-top: 4px;
+}
+
+.reactivity-center {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--white);
+  opacity: 0.3;
+}
+
+/* --- Accident Timeline --- */
+.accident-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.accident-card {
+  background: var(--gray-100);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.accident-card:hover { border-color: var(--red-light); }
+.accident-card.active { border-color: var(--red); background: #fef2f2; }
+
+.accident-year { font-size: 2rem; font-weight: 800; color: var(--red); }
+.accident-name { font-size: 1rem; font-weight: 700; margin-top: 4px; }
+.accident-location { font-size: 0.8rem; color: var(--slate); }
+.accident-scale { font-size: 0.75rem; font-weight: 600; color: var(--red); margin-top: 6px; }
+
+.accident-detail {
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 28px;
+  animation: fadeIn 0.3s ease;
+}
+
+.accident-detail h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 16px; color: var(--red); }
+
+.timeline {
+  position: relative;
+  padding-left: 32px;
+  margin: 20px 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gray-200);
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--red);
+}
+
+.timeline-item.safe::before { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
+
+.timeline-time {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.timeline-item.safe .timeline-time { color: var(--green); }
+
+.timeline-text { font-size: 0.88rem; color: var(--slate); margin-top: 4px; line-height: 1.6; }
+
+.failure-box {
+  background: #fef2f2;
+  border: 2px solid #fecaca;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.failure-box h4 { font-size: 0.95rem; font-weight: 700; color: var(--red); margin-bottom: 8px; }
+.failure-box p { font-size: 0.88rem; color: var(--slate); line-height: 1.7; }
+.failure-box ul { margin: 8px 0 0 20px; font-size: 0.88rem; color: var(--slate); line-height: 1.8; }
+
+.lesson-box {
+  background: #ecfdf5;
+  border: 2px solid #a7f3d0;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin-top: 16px;
+}
+
+.lesson-box h4 { font-size: 0.95rem; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+.lesson-box p { font-size: 0.88rem; color: var(--slate); line-height: 1.7; }
+
+/* --- Advanced Reactor Cards --- */
+.reactor-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.reactor-type-card {
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reactor-type-card:hover { border-color: var(--purple-light); }
+.reactor-type-card.active { border-color: var(--purple); box-shadow: var(--shadow-md); }
+
+.reactor-type-header {
+  padding: 20px;
+  color: var(--white);
+  font-weight: 700;
+}
+
+.reactor-type-header h3 { font-size: 1.1rem; margin-bottom: 4px; }
+.reactor-type-header p { font-size: 0.8rem; opacity: 0.85; font-weight: 400; }
+
+.reactor-type-body {
+  padding: 16px 20px;
+  background: var(--white);
+}
+
+.reactor-type-body p { font-size: 0.85rem; color: var(--slate); line-height: 1.6; }
+
+.safety-features {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+.safety-features li {
+  font-size: 0.85rem;
+  color: var(--navy);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.safety-features li::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.advanced-detail {
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 28px;
+  animation: fadeIn 0.3s ease;
+}
+
+.advanced-detail h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 16px; }
+
+.physics-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.physics-card {
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+
+.physics-card h5 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--slate);
+  margin-bottom: 8px;
+}
+
+.physics-card p { font-size: 0.85rem; color: var(--navy); line-height: 1.6; }
+
+/* --- Fusion Section --- */
+.fusion-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.fusion-col {
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.fusion-col h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; }
+
+.fusion-col.fission-col {
+  background: #fef2f2;
+  border: 2px solid #fecaca;
+}
+
+.fusion-col.fission-col h3 { color: var(--red); }
+
+.fusion-col.fusion-col-green {
+  background: #ecfdf5;
+  border: 2px solid #a7f3d0;
+}
+
+.fusion-col.fusion-col-green h3 { color: var(--green); }
+
+.comparison-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.comparison-item .ci-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.comparison-item p { font-size: 0.85rem; color: var(--navy); line-height: 1.5; }
+
+.waste-comparison-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.waste-bar-group {
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+}
+
+.waste-bar-group h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.waste-bar-item {
+  margin-bottom: 12px;
+}
+
+.waste-bar-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--slate);
+  margin-bottom: 4px;
+}
+
+.waste-bar-track {
+  height: 24px;
+  background: var(--gray-200);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.waste-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--white);
+  transition: width 1s ease;
+}
+
+/* --- Key Stats Strip --- */
+.key-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.key-stat {
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+}
+
+.key-stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  display: block;
+}
+
+.key-stat-label {
+  font-size: 0.72rem;
+  color: var(--slate);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* --- Footer --- */
+.site-footer {
+  background: var(--navy);
+  color: var(--slate-light);
+  text-align: center;
+  padding: 24px;
+  font-size: 0.8rem;
+  margin-top: 48px;
+}
+
+.footer-note { font-size: 0.7rem; margin-top: 4px; color: var(--slate); }
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .radiation-grid { grid-template-columns: repeat(2, 1fr); }
+  .accident-selector { grid-template-columns: 1fr; }
+  .reactor-type-grid { grid-template-columns: 1fr; }
+  .fusion-comparison { grid-template-columns: 1fr; }
+  .waste-comparison-visual { grid-template-columns: 1fr; }
+  .physics-comparison { grid-template-columns: 1fr; }
+  .key-stats { grid-template-columns: repeat(2, 1fr); }
+  .scale-comparison-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .panel { padding: 20px; }
+  .main-content { padding: 16px; }
+  .radiation-grid { grid-template-columns: 1fr 1fr; }
+  .nav-inner { gap: 2px; }
+  .nav-btn { padding: 8px 12px; font-size: 0.75rem; }
+  .rad-info-box .rad-properties { grid-template-columns: 1fr; }
+  .scale-comparison-grid { grid-template-columns: 1fr 1fr; }
+  .pen-source { width: 70px; font-size: 0.7rem; }
+  .pen-header-row { padding-left: 70px; }
+  .shield-layers-visual { flex-wrap: wrap; }
+  .shield-layer { min-width: 80px; min-height: 70px; padding: 10px 4px; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <span class="logo-icon">&#9762;</span>
+        <span class="logo-text">Nuclear Safety Explorer <span class="logo-sg">Deep Dive</span></span>
+      </div>
+      <p class="header-subtitle">Interactive guide to radioactivity, reactor safety systems, historical lessons, and advanced reactor designs</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="section-nav" id="section-nav">
+    <div class="container nav-inner">
+      <button class="nav-btn active" data-section="radiation">Radioactivity</button>
+      <button class="nav-btn" data-section="defense">Defense in Depth</button>
+      <button class="nav-btn" data-section="concepts">Safety Concepts</button>
+      <button class="nav-btn" data-section="accidents">Historical Accidents</button>
+      <button class="nav-btn" data-section="advanced">Advanced Reactors</button>
+      <button class="nav-btn" data-section="fusion">Fusion Safety</button>
+    </div>
+  </nav>
+
+  <main class="container main-content">
+
+    <!-- ===== Section 1: Radioactivity ===== -->
+    <section class="panel" id="section-radiation">
+      <h2 class="section-title">Understanding Radioactivity</h2>
+      <p class="section-desc">Radioactivity is the spontaneous emission of particles or energy from unstable atomic nuclei. Understanding the different types of radiation is essential to understanding how nuclear safety works &mdash; each type has different penetrating power, and safety barriers are designed to stop them all.</p>
+
+      <div class="radiation-grid" id="radiation-grid">
+        <div class="radiation-card active" data-type="alpha">
+          <span class="rad-symbol" style="color: var(--red);">&alpha;</span>
+          <div class="rad-name">Alpha Radiation</div>
+          <div class="rad-particle">Helium-4 nucleus (2p + 2n)</div>
+        </div>
+        <div class="radiation-card" data-type="beta">
+          <span class="rad-symbol" style="color: var(--blue);">&beta;</span>
+          <div class="rad-name">Beta Radiation</div>
+          <div class="rad-particle">Electron or positron</div>
+        </div>
+        <div class="radiation-card" data-type="gamma">
+          <span class="rad-symbol" style="color: var(--purple);">&gamma;</span>
+          <div class="rad-name">Gamma Radiation</div>
+          <div class="rad-particle">High-energy photon</div>
+        </div>
+        <div class="radiation-card" data-type="neutron">
+          <span class="rad-symbol" style="color: var(--amber);">n</span>
+          <div class="rad-name">Neutron Radiation</div>
+          <div class="rad-particle">Free neutron</div>
+        </div>
+      </div>
+
+      <!-- Penetration Visualization (with scale) -->
+      <div class="penetration-demo">
+        <div class="penetration-title">Shielding Effectiveness &mdash; What Stops Each Type?</div>
+        <div class="penetration-subtitle">Barrier widths are proportional to actual thickness. Click a radiation type above to see how far it penetrates.</div>
+
+        <!-- Header showing barrier names + thicknesses -->
+        <div id="pen-diagram">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Scale legend -->
+        <div class="pen-scale">
+          <span style="font-weight: 700; color: var(--navy); font-size: 0.75rem;">Materials:</span>
+          <div class="pen-scale-item"><div class="pen-scale-swatch" style="background: #a8a29e;"></div>Paper / Skin (~0.1 mm)</div>
+          <div class="pen-scale-item"><div class="pen-scale-swatch" style="background: #78716c;"></div>Aluminium (3 mm)</div>
+          <div class="pen-scale-item"><div class="pen-scale-swatch" style="background: #57534e;"></div>Lead (5 cm)</div>
+          <div class="pen-scale-item"><div class="pen-scale-swatch" style="background: #3b82f6;"></div>Concrete (1 m)</div>
+          <div class="pen-scale-item"><div class="pen-scale-swatch" style="background: #0ea5e9;"></div>Water (2 m)</div>
+        </div>
+
+        <!-- Real-world scale comparisons -->
+        <div class="scale-comparison-grid">
+          <div class="scale-card">
+            <div class="scale-card-value" style="color: var(--red);">2&ndash;10 cm</div>
+            <div class="scale-card-label">Alpha range in air</div>
+            <div class="scale-card-compare">Length of your finger</div>
+          </div>
+          <div class="scale-card">
+            <div class="scale-card-value" style="color: var(--blue);">0.1&ndash;5 m</div>
+            <div class="scale-card-label">Beta range in air</div>
+            <div class="scale-card-compare">Arm's reach to a small room</div>
+          </div>
+          <div class="scale-card">
+            <div class="scale-card-value" style="color: var(--purple);">100+ m</div>
+            <div class="scale-card-label">Gamma range in air</div>
+            <div class="scale-card-compare">Length of a football pitch</div>
+          </div>
+          <div class="scale-card">
+            <div class="scale-card-value" style="color: var(--amber);">100+ m</div>
+            <div class="scale-card-label">Neutron range in air</div>
+            <div class="scale-card-compare">But easy to slow &amp; capture</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reactor Shielding: How It Actually Works -->
+      <div class="reactor-shielding">
+        <h3 class="subsection-title">How a Real Reactor Stops All Radiation</h3>
+        <p style="font-size: 0.9rem; color: var(--slate); margin-bottom: 16px; line-height: 1.7;">The textbook barriers above are simplified. Inside an actual nuclear reactor, multiple engineered layers work together to ensure <strong>zero radiation reaches the outside</strong> &mdash; including the hardest-to-stop neutrons. Click each layer to see what it does.</p>
+
+        <div class="reactor-shield-diagram">
+          <h4>Reactor Shielding Layers (Centre &rarr; Outside)</h4>
+          <p>Each layer serves a specific shielding function. Neutrons are the hardest to stop &mdash; they require a multi-step strategy: first slow them down (moderate), then capture them (absorb).</p>
+
+          <div class="shield-layers-visual" id="shield-layers-visual">
+            <!-- Rendered by JS -->
+          </div>
+
+          <div class="shield-detail-box" id="shield-detail-box">
+            <h5>Click a layer above to see how it shields each radiation type</h5>
+            <p>In a real reactor, neutrons are handled by a layered strategy: water slows them, boron captures them, steel absorbs remaining fast neutrons, and thick concrete stops whatever is left.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Info Box -->
+      <div class="rad-info-box" id="rad-info-box">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- ===== Section 2: Defense in Depth ===== -->
+    <section class="panel hidden" id="section-defense">
+      <h2 class="section-title">Defense in Depth</h2>
+      <p class="section-desc">Nuclear power plants use multiple independent layers of protection. For a release of radioactivity to occur, every single barrier must fail simultaneously &mdash; an extraordinarily unlikely scenario in modern reactor designs.</p>
+
+      <div class="key-stats">
+        <div class="key-stat">
+          <span class="key-stat-value" style="color: var(--green);">5</span>
+          <span class="key-stat-label">Physical Barriers</span>
+        </div>
+        <div class="key-stat">
+          <span class="key-stat-value" style="color: var(--blue);">3+</span>
+          <span class="key-stat-label">Redundant Systems</span>
+        </div>
+        <div class="key-stat">
+          <span class="key-stat-value" style="color: var(--purple);">Multiple</span>
+          <span class="key-stat-label">Diverse Mechanisms</span>
+        </div>
+        <div class="key-stat">
+          <span class="key-stat-value" style="color: var(--amber);">Independent</span>
+          <span class="key-stat-label">Safety Channels</span>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Click each layer to explore</h3>
+
+      <div class="defense-layers" id="defense-layers">
+        <!-- Filled by JS -->
+      </div>
+
+      <div class="defense-detail" id="defense-detail">
+        <h4>Select a barrier layer above to learn more</h4>
+        <p>Each layer is designed to function independently &mdash; the failure of any single barrier does not compromise the overall containment of radioactive material.</p>
+      </div>
+    </section>
+
+    <!-- ===== Section 3: Safety Concepts ===== -->
+    <section class="panel hidden" id="section-concepts">
+      <h2 class="section-title">Safety Concepts &amp; Mechanisms</h2>
+      <p class="section-desc">Modern nuclear reactors incorporate fundamental physics-based safety mechanisms that operate without human intervention or external power. Explore each concept to understand how physics itself prevents accidents.</p>
+
+      <div class="concept-tabs" id="concept-tabs">
+        <button class="concept-tab active" data-concept="negative-temp">Negative Temperature Coefficient</button>
+        <button class="concept-tab" data-concept="negative-void">Negative Void Coefficient</button>
+        <button class="concept-tab" data-concept="passive-safe">Passive Safety</button>
+        <button class="concept-tab" data-concept="walkaway-safe">Walkaway Safe</button>
+        <button class="concept-tab" data-concept="doppler">Doppler Broadening</button>
+        <button class="concept-tab" data-concept="xenon">Xenon Poisoning</button>
+      </div>
+
+      <div id="concept-panels">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- ===== Section 4: Historical Accidents ===== -->
+    <section class="panel hidden" id="section-accidents">
+      <h2 class="section-title">Historical Accidents &amp; Lessons Learned</h2>
+      <p class="section-desc">Every major nuclear incident has led to fundamental improvements in reactor design and safety culture. Understanding what went wrong is key to understanding why modern reactors are dramatically safer.</p>
+
+      <div class="accident-selector" id="accident-selector">
+        <div class="accident-card active" data-accident="tmi">
+          <div class="accident-year">1979</div>
+          <div class="accident-name">Three Mile Island</div>
+          <div class="accident-location">Pennsylvania, USA</div>
+          <div class="accident-scale">INES Level 5 &mdash; Partial Meltdown</div>
+        </div>
+        <div class="accident-card" data-accident="chernobyl">
+          <div class="accident-year">1986</div>
+          <div class="accident-name">Chernobyl</div>
+          <div class="accident-location">Pripyat, Ukraine (USSR)</div>
+          <div class="accident-scale">INES Level 7 &mdash; Major Accident</div>
+        </div>
+        <div class="accident-card" data-accident="fukushima">
+          <div class="accident-year">2011</div>
+          <div class="accident-name">Fukushima Daiichi</div>
+          <div class="accident-location">Okuma, Japan</div>
+          <div class="accident-scale">INES Level 7 &mdash; Major Accident</div>
+        </div>
+      </div>
+
+      <div id="accident-detail-container">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- ===== Section 5: Advanced Reactors ===== -->
+    <section class="panel hidden" id="section-advanced">
+      <h2 class="section-title">Advanced Reactor Designs</h2>
+      <p class="section-desc">Next-generation reactor designs exploit fundamental physics to achieve safety levels far beyond conventional pressurised water reactors (PWRs). Many cannot physically melt down, regardless of operator actions or equipment failures.</p>
+
+      <div class="reactor-type-grid" id="reactor-type-grid">
+        <div class="reactor-type-card active" data-reactor="msr">
+          <div class="reactor-type-header" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);">
+            <h3>Molten Salt Reactor (MSR)</h3>
+            <p>Fuel dissolved in liquid salt coolant</p>
+          </div>
+          <div class="reactor-type-body">
+            <p>Fuel is dissolved directly in a molten fluoride or chloride salt that acts as both fuel carrier and coolant. Operates at atmospheric pressure.</p>
+            <ul class="safety-features">
+              <li>Freeze plug &mdash; passive drain on power loss</li>
+              <li>Atmospheric pressure operation &mdash; no pressurised explosion risk</li>
+              <li>Strong negative temperature coefficient</li>
+              <li>Online fuel processing removes fission products</li>
+              <li>No solid fuel to melt &mdash; fuel is already liquid</li>
+            </ul>
+          </div>
+        </div>
+        <div class="reactor-type-card" data-reactor="htgr">
+          <div class="reactor-type-header" style="background: linear-gradient(135deg, #059669, #34d399);">
+            <h3>High-Temperature Gas Reactor (HTGR)</h3>
+            <p>TRISO fuel with helium coolant</p>
+          </div>
+          <div class="reactor-type-body">
+            <p>Uses tiny TRISO fuel particles &mdash; each one a miniature containment system coated in ceramic and carbon layers, cooled by inert helium gas.</p>
+            <ul class="safety-features">
+              <li>TRISO particles withstand 1600+ &deg;C without releasing fission products</li>
+              <li>Graphite moderator has enormous thermal inertia</li>
+              <li>Helium coolant is chemically inert (no steam explosions)</li>
+              <li>Strong negative temperature coefficient</li>
+              <li>Demonstrated walkaway safety (AVR, HTR-10 tests)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="reactor-type-card" data-reactor="pwr">
+          <div class="reactor-type-header" style="background: linear-gradient(135deg, #2563eb, #60a5fa);">
+            <h3>Pressurised Water Reactor (PWR)</h3>
+            <p>Most common reactor type worldwide</p>
+          </div>
+          <div class="reactor-type-body">
+            <p>Uses solid uranium oxide fuel rods cooled by pressurised water (~155 bar). Reliable and well-understood, but requires active safety systems and external power.</p>
+            <ul class="safety-features">
+              <li>Negative temperature and void coefficients</li>
+              <li>Control rod insertion (SCRAM) shuts reactor in seconds</li>
+              <li>Emergency core cooling systems (ECCS)</li>
+              <li>Steel and concrete containment building</li>
+              <li>Requires active cooling after shutdown (decay heat)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="reactor-type-card" data-reactor="sfr">
+          <div class="reactor-type-header" style="background: linear-gradient(135deg, #d97706, #fbbf24);">
+            <h3>Sodium-Cooled Fast Reactor (SFR)</h3>
+            <p>Fast-spectrum reactor with liquid metal coolant</p>
+          </div>
+          <div class="reactor-type-body">
+            <p>Uses liquid sodium as coolant, which has excellent heat transfer properties and operates at atmospheric pressure. Can breed fuel and burn nuclear waste.</p>
+            <ul class="safety-features">
+              <li>Atmospheric pressure operation</li>
+              <li>Passive decay heat removal via natural circulation</li>
+              <li>Strong negative reactivity feedback</li>
+              <li>Can consume long-lived waste as fuel</li>
+              <li>Demonstrated passive shutdown (EBR-II tests, 1986)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="advanced-detail-container">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- ===== Section 6: Fusion Safety ===== -->
+    <section class="panel hidden" id="section-fusion">
+      <h2 class="section-title">Fusion Reactor Safety</h2>
+      <p class="section-desc">Fusion &mdash; the process that powers the Sun &mdash; offers transformative safety advantages over fission. A fusion reactor cannot melt down, produces no long-lived radioactive waste, and carries no risk of a chain reaction accident.</p>
+
+      <div class="key-stats">
+        <div class="key-stat">
+          <span class="key-stat-value" style="color: var(--green);">0</span>
+          <span class="key-stat-label">Chain Reaction Risk</span>
+        </div>
+        <div class="key-stat">
+          <span class="key-stat-value" style="color: var(--blue);">&lt; 100 yr</span>
+          <span class="key-stat-label">Waste Decay Time</span>
+        </div>
+        <div class="key-stat">
+          <span class="key-stat-value" style="color: var(--purple);">&lt; 1 g</span>
+          <span class="key-stat-label">Fuel in Plasma</span>
+        </div>
+        <div class="key-stat">
+          <span class="key-stat-value" style="color: var(--teal);">No</span>
+          <span class="key-stat-label">Weapons-Usable Material</span>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Why Fusion Is Inherently Safer</h3>
+      <p style="font-size: 0.9rem; color: var(--slate); margin-bottom: 24px; line-height: 1.7;">In fission, heavy atoms like uranium-235 are split, releasing energy and neutrons that sustain a chain reaction. The challenge is <em>controlling</em> this chain reaction. In fusion, light atoms (hydrogen isotopes deuterium and tritium) are forced together at extreme temperatures (~150 million &deg;C) to form helium. The challenge is <em>sustaining</em> the reaction &mdash; any disruption instantly stops it.</p>
+
+      <div class="fusion-comparison">
+        <div class="fusion-col fission-col">
+          <h3>Fission Reactors</h3>
+          <div class="comparison-item">
+            <div class="ci-icon" style="background: var(--red);">!</div>
+            <p><strong>Chain reaction must be actively controlled.</strong> Without control rods or negative feedback, the reaction accelerates.</p>
+          </div>
+          <div class="comparison-item">
+            <div class="ci-icon" style="background: var(--red);">!</div>
+            <p><strong>Large fuel inventory</strong> in the core (typically 80&ndash;100 tonnes of uranium). Decay heat persists for months after shutdown.</p>
+          </div>
+          <div class="comparison-item">
+            <div class="ci-icon" style="background: var(--red);">!</div>
+            <p><strong>Long-lived radioactive waste.</strong> Spent fuel contains isotopes that remain hazardous for tens of thousands of years (e.g., Pu-239: 24,100-year half-life).</p>
+          </div>
+          <div class="comparison-item">
+            <div class="ci-icon" style="background: var(--red);">!</div>
+            <p><strong>Meltdown possible</strong> if cooling is lost and decay heat is not removed.</p>
+          </div>
+        </div>
+        <div class="fusion-col fusion-col-green">
+          <h3>Fusion Reactors</h3>
+          <div class="comparison-item">
+            <div class="ci-icon" style="background: var(--green);">&#10003;</div>
+            <p><strong>No chain reaction.</strong> Fusion requires extreme conditions to sustain &mdash; any disruption (loss of confinement, cooling, or power) instantly stops the reaction.</p>
+          </div>
+          <div class="comparison-item">
+            <div class="ci-icon" style="background: var(--green);">&#10003;</div>
+            <p><strong>Tiny fuel inventory</strong> in the plasma at any time (less than 1 gram of fuel). No significant decay heat after shutdown.</p>
+          </div>
+          <div class="comparison-item">
+            <div class="ci-icon" style="background: var(--green);">&#10003;</div>
+            <p><strong>No long-lived radioactive waste.</strong> Activated structural materials decay to safe levels within ~50&ndash;100 years. The primary product is helium.</p>
+          </div>
+          <div class="comparison-item">
+            <div class="ci-icon" style="background: var(--green);">&#10003;</div>
+            <p><strong>Meltdown impossible.</strong> The plasma is a million times less dense than air. If confinement fails, the plasma cools in milliseconds.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Waste Comparison: Radioactive Hazard Duration</h3>
+      <div class="waste-comparison-visual" id="waste-duration-visual">
+        <div class="waste-bar-group">
+          <h4 style="color: var(--red);">Fission Waste</h4>
+          <div class="waste-bar-item">
+            <div class="waste-bar-label">High-level waste (vitrified)</div>
+            <div class="waste-bar-track">
+              <div class="waste-bar-fill" style="width: 100%; background: var(--red);">~100,000+ years</div>
+            </div>
+          </div>
+          <div class="waste-bar-item">
+            <div class="waste-bar-label">Spent fuel (direct disposal)</div>
+            <div class="waste-bar-track">
+              <div class="waste-bar-fill" style="width: 100%; background: var(--red-light);">~300,000 years</div>
+            </div>
+          </div>
+          <div class="waste-bar-item">
+            <div class="waste-bar-label">Intermediate-level waste</div>
+            <div class="waste-bar-track">
+              <div class="waste-bar-fill" style="width: 30%; background: var(--amber);">~300 years</div>
+            </div>
+          </div>
+        </div>
+        <div class="waste-bar-group">
+          <h4 style="color: var(--green);">Fusion Waste</h4>
+          <div class="waste-bar-item">
+            <div class="waste-bar-label">Activated structural components</div>
+            <div class="waste-bar-track">
+              <div class="waste-bar-fill" style="width: 10%; background: var(--green);">50&ndash;100 years</div>
+            </div>
+          </div>
+          <div class="waste-bar-item">
+            <div class="waste-bar-label">Tritium-contaminated components</div>
+            <div class="waste-bar-track">
+              <div class="waste-bar-fill" style="width: 4%; background: var(--teal);">~12 years (half-life)</div>
+            </div>
+          </div>
+          <div class="waste-bar-item">
+            <div class="waste-bar-label">Primary reaction product</div>
+            <div class="waste-bar-track">
+              <div class="waste-bar-fill" style="width: 2%; background: var(--blue);">Helium (stable, non-radioactive)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">The Physics of Fusion Safety</h3>
+      <div class="physics-comparison">
+        <div class="physics-card">
+          <h5>Plasma Confinement</h5>
+          <p>Fusion fuel must be heated to 150 million &deg;C and confined by powerful magnetic fields (tokamak) or intense lasers (inertial confinement). The plasma contains less than a gram of fuel. If confinement is lost, the plasma touches the walls, cools instantly, and the reaction stops. There is no mechanism for a runaway reaction.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Tritium Handling</h5>
+          <p>Tritium (hydrogen-3, half-life 12.3 years) is the main radiological concern in fusion. It is a low-energy beta emitter that cannot penetrate skin. Fusion plants will breed tritium from lithium blankets and maintain only small working inventories (~1&ndash;2 kg), minimising release risk. In the worst-case scenario, any released tritium disperses rapidly and decays relatively quickly.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Neutron Activation</h5>
+          <p>The 14.1 MeV neutrons from D-T fusion activate structural materials, making them radioactive. However, by choosing low-activation materials (e.g., RAFM steels, vanadium alloys, SiC composites), this activation decays to safe handling levels within 50&ndash;100 years &mdash; orders of magnitude shorter than fission waste.</p>
+        </div>
+        <div class="physics-card">
+          <h5>No Proliferation Risk</h5>
+          <p>Fusion does not produce plutonium or enriched uranium. The fuel (deuterium from seawater, lithium for breeding tritium) is not weapons-usable. While tritium has military applications, the quantities in a fusion plant are small and the material is difficult to divert due to continuous consumption.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>Nuclear Safety Explorer &mdash; Educational Resource</p>
+      <p class="footer-note">For educational purposes only. Scientific data sourced from IAEA, NRC, and peer-reviewed literature.</p>
+    </div>
+  </footer>
+
+  <script>
+/* ============================================================
+   Nuclear Safety Explorer — Interactive Logic
+   ============================================================ */
+
+// ---- Navigation ----
+const navBtns = document.querySelectorAll('.nav-btn');
+const sections = {
+  radiation: document.getElementById('section-radiation'),
+  defense: document.getElementById('section-defense'),
+  concepts: document.getElementById('section-concepts'),
+  accidents: document.getElementById('section-accidents'),
+  advanced: document.getElementById('section-advanced'),
+  fusion: document.getElementById('section-fusion'),
+};
+
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    navBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    Object.values(sections).forEach(s => s.classList.add('hidden'));
+    sections[btn.dataset.section].classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ---- Section 1: Radioactivity ----
+const radiationData = {
+  alpha: {
+    name: 'Alpha Radiation',
+    symbol: '\u03B1',
+    color: 'var(--red)',
+    colorHex: '#dc2626',
+    description: 'Alpha particles are heavy, positively charged particles consisting of 2 protons and 2 neutrons (a helium-4 nucleus). They are emitted during the decay of heavy elements like uranium, radium, and radon.',
+    danger: 'Extremely dangerous if inhaled or ingested (internal exposure), but harmless externally because even a sheet of paper or the outer dead layer of skin can stop them.',
+    physics: 'Due to their large mass (+2 charge) and relatively slow speed (~5% of the speed of light), alpha particles interact strongly with matter, losing energy rapidly through ionisation. They deposit all their energy over a very short distance (high Linear Energy Transfer), which is why they cause severe biological damage when inside the body.',
+    properties: [
+      { label: 'Mass', value: '~4 atomic mass units' },
+      { label: 'Charge', value: '+2 (doubly positive)' },
+      { label: 'Speed', value: '~5% speed of light' },
+      { label: 'Range in air', value: '2\u201310 cm' },
+      { label: 'Stopped by', value: 'Paper, skin, clothing' },
+      { label: 'Ionising power', value: 'Very high (~20x gamma)' },
+    ],
+    // Which barrier index (0-4) stops it. Arrow ends inside this barrier.
+    stoppedAt: 0,
+    stoppedLabel: 'Stopped by paper / skin'
+  },
+  beta: {
+    name: 'Beta Radiation',
+    symbol: '\u03B2',
+    color: 'var(--blue)',
+    colorHex: '#2563eb',
+    description: 'Beta particles are high-energy electrons (or positrons) emitted when a neutron converts to a proton (beta-minus) or a proton converts to a neutron (beta-plus) inside an unstable nucleus. Common sources include strontium-90, carbon-14, and tritium.',
+    danger: 'Can penetrate skin and cause radiation burns with prolonged exposure. Internal exposure is also hazardous. Shielded effectively by a few millimetres of aluminium or plastic.',
+    physics: 'Beta particles are much lighter than alpha particles (1/7000th the mass) and carry only a single charge, so they interact less strongly with matter and penetrate further. Their energy spectrum is continuous (shared with the neutrino), and they lose energy through ionisation and bremsstrahlung (braking radiation) as they decelerate in matter.',
+    properties: [
+      { label: 'Mass', value: '~1/1836 atomic mass units' },
+      { label: 'Charge', value: '-1 (electron) or +1 (positron)' },
+      { label: 'Speed', value: 'Up to ~99% speed of light' },
+      { label: 'Range in air', value: '0.1\u20135 m' },
+      { label: 'Stopped by', value: 'Aluminium sheet, plastic, wood' },
+      { label: 'Ionising power', value: 'Moderate' },
+    ],
+    stoppedAt: 1,
+    stoppedLabel: 'Stopped by a few mm of aluminium'
+  },
+  gamma: {
+    name: 'Gamma Radiation',
+    symbol: '\u03B3',
+    color: 'var(--purple)',
+    colorHex: '#7c3aed',
+    description: 'Gamma rays are high-energy electromagnetic radiation (photons) emitted from the nucleus. They typically accompany alpha or beta decay as the nucleus transitions to a lower energy state. Sources include cobalt-60, caesium-137, and nuclear fission products.',
+    danger: 'Highly penetrating \u2014 can pass through the entire body, causing damage to internal organs. Requires dense shielding (lead, steel, thick concrete) for protection. Used medically for cancer treatment and diagnostic imaging.',
+    physics: 'As massless, chargeless photons travelling at the speed of light, gamma rays interact with matter through three key mechanisms: the photoelectric effect (dominant at low energies), Compton scattering (mid energies), and pair production (high energies, >1.022 MeV). Their intensity follows an exponential attenuation law: each layer of shielding reduces intensity by a fixed fraction.',
+    properties: [
+      { label: 'Mass', value: '0 (massless photon)' },
+      { label: 'Charge', value: '0 (neutral)' },
+      { label: 'Speed', value: 'Speed of light (3 \u00D7 10\u2078 m/s)' },
+      { label: 'Range in air', value: 'Hundreds of metres' },
+      { label: 'Stopped by', value: 'Thick lead, steel, or concrete' },
+      { label: 'Ionising power', value: 'Low per interaction, but penetrating' },
+    ],
+    stoppedAt: 2,
+    stoppedLabel: 'Attenuated by lead / stopped by thick concrete'
+  },
+  neutron: {
+    name: 'Neutron Radiation',
+    symbol: 'n',
+    color: 'var(--amber)',
+    colorHex: '#d97706',
+    description: 'Free neutrons are released during nuclear fission and fusion reactions. They are the particles that sustain the chain reaction in a nuclear reactor. Outside the nucleus, a free neutron is unstable and decays with a half-life of about 10 minutes.',
+    danger: 'Very penetrating and biologically damaging. Because they are uncharged, neutrons pass through dense materials like lead and interact primarily with light nuclei (hydrogen). They can also make other materials radioactive through neutron activation.',
+    physics: 'Being electrically neutral, neutrons do not interact via the electromagnetic force and cannot be stopped by ionisation. Instead, they lose energy through elastic and inelastic scattering with atomic nuclei. Hydrogen-rich materials (water, polyethylene, paraffin) are the most effective shields because the neutron transfers maximum energy to a nucleus of similar mass (like a billiard ball collision). Once slowed to thermal energies, neutrons are absorbed by materials like boron or cadmium.',
+    properties: [
+      { label: 'Mass', value: '~1 atomic mass unit' },
+      { label: 'Charge', value: '0 (neutral)' },
+      { label: 'Speed', value: 'Variable (thermal to fast)' },
+      { label: 'Range in air', value: 'Up to hundreds of metres' },
+      { label: 'Stopped by', value: 'Water, paraffin, concrete, borated polyethylene' },
+      { label: 'Ionising power', value: 'High (via secondary reactions)' },
+    ],
+    stoppedAt: 4,
+    stoppedLabel: 'Slowed by collisions, absorbed by hydrogen-rich materials'
+  }
+};
+
+// Barrier definitions with proportional widths (relative thickness for visual)
+// Real thicknesses: paper ~0.1mm, aluminium ~3mm, lead ~5cm, concrete ~1m, water ~2m
+// We use a log-ish scale so thin barriers are still visible
+const barriers = [
+  { name: 'Paper / Skin',  thickness: '~0.1 mm', bg: '#a8a29e', flex: 3 },
+  { name: 'Aluminium',     thickness: '3 mm',     bg: '#78716c', flex: 4 },
+  { name: 'Lead / Steel',  thickness: '5 cm',     bg: '#57534e', flex: 8 },
+  { name: 'Concrete',      thickness: '1 m',      bg: '#3b82f6', flex: 18 },
+  { name: 'Water / Paraffin', thickness: '2 m',   bg: '#0ea5e9', flex: 25 },
+];
+
+// Penetration behaviour per type:
+// For each barrier, does this radiation type pass through, get partially attenuated, or get stopped?
+const penBehaviour = {
+  alpha:   ['stopped', 'n/a',      'n/a',        'n/a',         'n/a'],
+  beta:    ['passes',  'stopped',  'n/a',        'n/a',         'n/a'],
+  gamma:   ['passes',  'passes',   'stopped',    'n/a',         'n/a'],
+  neutron: ['passes',  'passes',   'weak',       'slowed',      'stopped'],
+};
+
+// Labels shown in the arrow's stopped marker
+const penNeutronNotes = {
+  2: 'Passes through (neutral charge)',
+  3: 'Slowed (H in concrete)',
+  4: 'Absorbed (H collisions)',
+};
+
+function renderPenDiagram(type) {
+  const data = radiationData[type];
+  const behaviours = penBehaviour[type];
+  const totalFlex = barriers.reduce((s, b) => s + b.flex, 0);
+  const container = document.getElementById('pen-diagram');
+
+  // Build header row
+  let headerHTML = '<div class="pen-header-row">';
+  barriers.forEach(b => {
+    const pct = (b.flex / totalFlex * 100).toFixed(1);
+    headerHTML += `<div class="pen-header-cell" style="width:${pct}%;">
+      ${b.name}<span class="pen-header-thickness">${b.thickness}</span>
+    </div>`;
+  });
+  headerHTML += '</div>';
+
+  // Build the radiation row
+  // Calculate how far the arrow extends (as %)
+  let arrowEndPct = 0;
+  const stoppedIdx = data.stoppedAt;
+  // Arrow goes through all barriers before stoppedAt, plus ~60% into the stopping barrier
+  for (let i = 0; i < stoppedIdx; i++) arrowEndPct += barriers[i].flex;
+  arrowEndPct += barriers[stoppedIdx].flex * 0.6;
+  arrowEndPct = (arrowEndPct / totalFlex * 100);
+
+  let rowHTML = `<div class="pen-row" style="margin-top: 8px;">`;
+  rowHTML += `<div class="pen-source" style="color: ${data.colorHex};">
+    ${data.symbol}
+    <span class="pen-source-sub">${data.name}</span>
+  </div>`;
+  rowHTML += `<div class="pen-track">`;
+
+  // Barrier blocks
+  barriers.forEach((b, i) => {
+    const pct = (b.flex / totalFlex * 100).toFixed(1);
+    const behaviour = behaviours[i];
+    let opacity = 1;
+    let borderR = '';
+    let borderL = '';
+    if (i === 0) borderL = 'border-radius: 4px 0 0 4px;';
+    if (i === barriers.length - 1) borderR = 'border-radius: 0 4px 4px 0;';
+
+    // Dim barriers that are past the stopping point (irrelevant)
+    if (behaviour === 'n/a') opacity = 0.3;
+
+    // For neutrons passing through lead, show it differently
+    let label = b.name;
+    if (type === 'neutron') {
+      if (i === 2) label = 'Lead<br><span style="font-size:0.52rem;opacity:0.8;">passes through!</span>';
+      if (i === 3) label = 'Concrete<br><span style="font-size:0.52rem;opacity:0.8;">slows neutrons</span>';
+      if (i === 4) label = 'Water<br><span style="font-size:0.52rem;opacity:0.8;">absorbs neutrons</span>';
+    }
+
+    rowHTML += `<div class="pen-barrier" style="width:${pct}%; background:${b.bg}; opacity:${opacity}; ${borderL}${borderR}">
+      <span class="pen-barrier-label">${label}</span>
+    </div>`;
+  });
+
+  // Arrow overlay
+  rowHTML += `<div class="pen-arrow-track" style="width:${arrowEndPct}%;">
+    <div class="pen-arrow-line" style="background:${data.colorHex}; color:${data.colorHex};"></div>
+    <div class="pen-stopped">
+      <div class="pen-stopped-x" style="background:${data.colorHex};">&#10005;</div>
+    </div>
+  </div>`;
+
+  rowHTML += `</div>`; // end pen-track
+
+  // For neutrons, add note about passing through lead
+  if (type === 'neutron') {
+    rowHTML += `<div class="pen-passes" style="color:${data.colorHex}; right: auto; position: static; margin-left: 8px; font-size: 0.68rem;">
+      Absorbed
+    </div>`;
+  }
+
+  rowHTML += `</div>`; // end pen-row
+
+  // Explanation strip below the diagram
+  let explanationHTML = `<div style="
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--white);
+    border-radius: 6px;
+    border-left: 4px solid ${data.colorHex};
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.6;
+  ">`;
+
+  if (type === 'alpha') {
+    explanationHTML += `<strong style="color:${data.colorHex};">Alpha particles</strong> are large and heavily charged (+2). They lose energy extremely rapidly through ionisation, depositing all their energy within the first 0.1 mm of material. Even a single sheet of paper, clothing, or the dead outer layer of skin is sufficient to stop them completely. Inside a reactor, they never get past the fuel pellet itself.`;
+  } else if (type === 'beta') {
+    explanationHTML += `<strong style="color:${data.colorHex};">Beta particles</strong> are small and fast electrons. They penetrate paper and skin but are stopped by a few millimetres of aluminium or plastic. Inside a reactor, the zirconium alloy fuel cladding (~0.6 mm thick) is more than sufficient to stop all beta radiation from reaching the coolant.`;
+  } else if (type === 'gamma') {
+    explanationHTML += `<strong style="color:${data.colorHex};">Gamma rays</strong> are massless photons that pass through lightweight materials easily. Their intensity is reduced exponentially by dense materials: each 1 cm of lead cuts gamma intensity roughly in half. A reactor's steel pressure vessel (20 cm) and concrete containment (1\u20132 m) reduce gamma radiation to undetectable levels outside the plant.`;
+  } else {
+    explanationHTML += `<strong style="color:${data.colorHex};">Neutrons</strong> are the trickiest to shield because they are electrically neutral \u2014 they pass straight through lead and steel. Stopping them requires a <strong>two-step process</strong>: first <em>moderate</em> (slow down) the neutrons by bouncing them off light nuclei like hydrogen, then <em>absorb</em> them with materials like boron-10 or cadmium. This is why water and hydrogen-rich concrete are the key neutron barriers, not dense metals. Inside a reactor, borated water, thick concrete with iron aggregate, and boron-loaded liners work together to capture virtually all neutrons.`;
+  }
+  explanationHTML += `</div>`;
+
+  container.innerHTML = headerHTML + rowHTML + explanationHTML;
+}
+
+// ---- Reactor Shielding Layers ----
+const shieldLayers = [
+  {
+    name: 'Fuel Pellet',
+    dim: '~8 mm dia',
+    bg: '#dc2626',
+    flex: 4,
+    stops: ['\u03B1'],
+    detail: `<h5>Fuel Pellet (UO<sub>2</sub> Ceramic)</h5>
+      <p>The dense ceramic matrix traps <strong>95\u201398% of all fission products</strong> within its crystalline structure. All alpha particles are absorbed within the pellet \u2014 their range in solid UO<sub>2</sub> is less than 10 micrometres. The pellet also absorbs most beta radiation. Gamma rays and neutrons, however, pass through.</p>
+      <p><strong>Alpha:</strong> Completely stopped. <strong>Beta:</strong> Mostly stopped. <strong>Gamma:</strong> Passes through. <strong>Neutrons:</strong> Some absorbed (fission), most pass through.</p>`
+  },
+  {
+    name: 'Fuel Cladding',
+    dim: '~0.6 mm Zircaloy',
+    bg: '#d97706',
+    flex: 4,
+    stops: ['\u03B2'],
+    detail: `<h5>Zirconium Alloy Cladding</h5>
+      <p>The sealed metal tube surrounding the fuel stops <strong>all remaining beta radiation</strong> and any alpha particles that escaped the pellet surface. Zircaloy is chosen specifically for its low neutron absorption cross-section \u2014 it lets neutrons pass through to sustain the chain reaction in the moderator, which is desirable during operation.</p>
+      <p><strong>Alpha:</strong> Already stopped. <strong>Beta:</strong> Completely stopped. <strong>Gamma:</strong> Slightly attenuated, passes through. <strong>Neutrons:</strong> Intentionally transparent (low absorption).</p>`
+  },
+  {
+    name: 'Water Coolant<br>(Borated)',
+    dim: '~3\u20134 m across core',
+    bg: '#0ea5e9',
+    flex: 14,
+    stops: ['n (slowed)'],
+    detail: `<h5>Borated Water Coolant / Moderator</h5>
+      <p>This is the <strong>single most important neutron shield</strong> in a PWR. The water serves three roles simultaneously:</p>
+      <p><strong>1. Moderator:</strong> Hydrogen nuclei in water are nearly the same mass as neutrons. Each collision transfers roughly half the neutron's energy (like two billiard balls). After ~18\u201320 collisions, a 2 MeV fast neutron is slowed to thermal energy (0.025 eV).</p>
+      <p><strong>2. Absorber:</strong> Dissolved boric acid (H<sub>3</sub>BO<sub>3</sub>) provides boron-10 atoms, which have an enormous thermal neutron absorption cross-section (3,840 barns). Slow neutrons are captured by boron-10 via the reaction: <strong><sup>10</sup>B + n &rarr; <sup>7</sup>Li + \u03B1</strong>. The resulting alpha particle is absorbed within millimetres.</p>
+      <p><strong>3. Coolant:</strong> Removes heat from the fuel.</p>
+      <p><strong>Gamma:</strong> Water provides some attenuation but is not the primary gamma shield. <strong>Neutrons:</strong> Vast majority are thermalised and absorbed here.</p>`
+  },
+  {
+    name: 'Steel RPV',
+    dim: '20\u201325 cm steel',
+    bg: '#475569',
+    flex: 10,
+    stops: ['\u03B3 (most)'],
+    detail: `<h5>Reactor Pressure Vessel (Forged Steel)</h5>
+      <p>The 20\u201325 cm thick steel vessel is the <strong>primary gamma radiation shield</strong>. The dense iron nuclei interact strongly with gamma photons via Compton scattering and photoelectric absorption. By the time gamma radiation has passed through the full thickness of the RPV, its intensity is reduced by several orders of magnitude.</p>
+      <p>The steel also absorbs some remaining fast neutrons through inelastic scattering with iron nuclei, and provides structural containment at 155 bar pressure.</p>
+      <p><strong>Gamma:</strong> Reduced by ~99%+. <strong>Neutrons:</strong> Fast neutrons further attenuated; thermal neutrons mostly already absorbed by borated water.</p>`
+  },
+  {
+    name: 'Biological<br>Shield',
+    dim: '1.5\u20132.5 m concrete',
+    bg: '#3b82f6',
+    flex: 18,
+    stops: ['\u03B3', 'n'],
+    detail: `<h5>Biological Shield (Heavy Concrete)</h5>
+      <p>The thick concrete biological shield is the <strong>final radiation barrier</strong> and the reason radiation levels outside a reactor building are at natural background levels.</p>
+      <p><strong>For neutrons:</strong> The concrete contains hydrogen (in water of crystallisation and aggregates), which moderates any remaining fast neutrons. It also contains <strong>iron ore aggregate or barytes</strong> (barium sulfate) for additional gamma shielding, and some designs incorporate <strong>boron carbide (B<sub>4</sub>C) granules</strong> or borated polyethylene liners to capture thermalised neutrons.</p>
+      <p><strong>For gamma:</strong> The high density (2,300\u20133,500 kg/m<sup>3</sup> for heavy concrete) attenuates any remaining gamma rays to negligible levels through Compton scattering and photoelectric absorption.</p>
+      <p>After passing through all five layers, <strong>radiation at the outer surface of the containment is indistinguishable from natural background</strong> (~0.1 \u03BCSv/hr).</p>`
+  },
+  {
+    name: 'Containment',
+    dim: '1\u20131.5 m reinforced concrete',
+    bg: '#64748b',
+    flex: 14,
+    stops: ['all'],
+    detail: `<h5>Containment Building</h5>
+      <p>The final outer containment provides an additional 1\u20131.5 m of reinforced concrete with a steel liner. While its primary purpose is pressure containment (retaining steam/hydrogen in an accident), it also provides <strong>substantial additional radiation shielding</strong> as a secondary benefit.</p>
+      <p>The total combined shielding \u2014 water + steel + biological shield + containment \u2014 means that <strong>a person standing directly outside a running nuclear reactor receives less radiation than they would on a long-haul flight</strong>.</p>`
+  }
+];
+
+function renderShieldLayers() {
+  const container = document.getElementById('shield-layers-visual');
+  const totalFlex = shieldLayers.reduce((s, l) => s + l.flex, 0);
+
+  container.innerHTML = shieldLayers.map((layer, i) => {
+    const pct = (layer.flex / totalFlex * 100).toFixed(1);
+    const borderL = i === 0 ? 'border-radius: 8px 0 0 8px;' : '';
+    const borderR = i === shieldLayers.length - 1 ? 'border-radius: 0 8px 8px 0;' : '';
+    return `<div class="shield-layer" data-index="${i}" style="width:${pct}%; background:${layer.bg}; ${borderL}${borderR}">
+      <div class="shield-layer-name">${layer.name}</div>
+      <div class="shield-layer-dim">${layer.dim}</div>
+      <div class="shield-layer-icons">
+        ${layer.stops.map(s => `<span class="shield-stops-badge">${s}</span>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+
+  container.querySelectorAll('.shield-layer').forEach(el => {
+    el.addEventListener('click', () => {
+      container.querySelectorAll('.shield-layer').forEach(e => e.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('shield-detail-box').innerHTML = shieldLayers[parseInt(el.dataset.index)].detail;
+    });
+  });
+}
+
+function updateRadiationDisplay(type) {
+  const data = radiationData[type];
+
+  // Update cards
+  document.querySelectorAll('.radiation-card').forEach(c => {
+    c.classList.toggle('active', c.dataset.type === type);
+  });
+
+  // Render the scaled penetration diagram
+  renderPenDiagram(type);
+
+  // Update info box
+  const infoBox = document.getElementById('rad-info-box');
+  infoBox.style.borderLeftColor = data.colorHex;
+  infoBox.innerHTML = `
+    <h4 style="color: ${data.colorHex};">${data.name}</h4>
+    <p>${data.description}</p>
+    <p style="margin-top: 8px;"><strong>Biological hazard:</strong> ${data.danger}</p>
+
+    <div class="physics-box" style="margin-top: 16px; border-left-color: ${data.colorHex};">
+      <h4 style="color: ${data.colorHex};">Physics of Interaction</h4>
+      <p>${data.physics}</p>
+    </div>
+
+    <div class="rad-properties" style="margin-top: 16px;">
+      ${data.properties.map(p => `
+        <div class="rad-prop">
+          <div class="rad-prop-label">${p.label}</div>
+          <div class="rad-prop-value">${p.value}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+document.querySelectorAll('.radiation-card').forEach(card => {
+  card.addEventListener('click', () => updateRadiationDisplay(card.dataset.type));
+});
+
+updateRadiationDisplay('alpha');
+renderShieldLayers();
+
+// ---- Section 2: Defense in Depth ----
+const defenseData = [
+  {
+    title: 'Fuel Ceramic Pellet',
+    subtitle: 'First barrier &mdash; the fuel itself',
+    color: '#dc2626',
+    detail: `<h4>Barrier 1: Uranium Oxide Fuel Pellet</h4>
+      <p>The fuel itself is the first line of defense. Uranium dioxide (UO<sub>2</sub>) is a dense ceramic material with a melting point of approximately 2,865 &deg;C. The crystalline structure of the ceramic physically traps most fission products (radioactive atoms created during fission) within the fuel matrix itself.</p>
+      <p><strong>How it works:</strong> About 95&ndash;98% of fission products remain locked inside the ceramic pellet throughout its operational life. The ceramic does not dissolve in water and is chemically stable even at very high temperatures. Only volatile fission gases (xenon, krypton) and small amounts of volatile elements like iodine and caesium can migrate to the gap between the pellet and cladding.</p>
+      <p><strong>Failure mode:</strong> If the fuel temperature exceeds its design limits, the ceramic can crack, releasing more fission gases. In an extreme scenario (fuel melting), the ceramic matrix breaks down, releasing trapped fission products. This is what happened during the Three Mile Island and Fukushima accidents.</p>`
+  },
+  {
+    title: 'Fuel Cladding (Zircaloy Tube)',
+    subtitle: 'Second barrier &mdash; hermetically sealed metal tube',
+    color: '#d97706',
+    detail: `<h4>Barrier 2: Zircaloy Cladding</h4>
+      <p>Each fuel pellet is stacked inside a sealed tube made of zirconium alloy (Zircaloy), typically about 4 metres long with walls less than 1 mm thick. These tubes are engineered to contain all fission products that escape the ceramic pellet.</p>
+      <p><strong>How it works:</strong> The cladding acts as a hermetic seal between the fuel and the reactor coolant. Zircaloy is chosen because it has very low neutron absorption (good for reactor efficiency), excellent corrosion resistance in high-temperature water, and adequate mechanical strength. The gas plenum at the top of each fuel rod provides space for fission gas accumulation without overpressurising the tube.</p>
+      <p><strong>Failure mode:</strong> If coolant is lost or temperatures rise excessively, the cladding can balloon, burst, or &mdash; above ~1,200 &deg;C &mdash; react exothermically with steam to produce hydrogen gas and zirconium oxide. This zirconium-steam reaction was a major factor at both TMI and Fukushima, generating hydrogen that later caused explosions. Modern reactors use accident-tolerant fuels (ATF) with chromium-coated or silicon carbide cladding to mitigate this.</p>`
+  },
+  {
+    title: 'Reactor Pressure Vessel',
+    subtitle: 'Third barrier &mdash; thick forged steel vessel',
+    color: '#2563eb',
+    detail: `<h4>Barrier 3: Reactor Pressure Vessel (RPV)</h4>
+      <p>The reactor pressure vessel is a massive forged steel cylinder &mdash; typically 20&ndash;25 cm thick, weighing 300&ndash;500 tonnes &mdash; that contains the entire reactor core, coolant, and control mechanisms. It is designed to withstand extreme pressures (155 bar in a PWR) and temperatures.</p>
+      <p><strong>How it works:</strong> Even if fuel rods fail and release fission products into the coolant, the RPV contains all radioactive material within a closed system. The vessel is made from specialised low-alloy steel and lined with stainless steel to resist corrosion. It is designed, inspected, and tested to the most stringent engineering codes in any industry.</p>
+      <p><strong>Failure mode:</strong> RPV failure is extremely rare and has never occurred in a commercial Western reactor during operation. However, prolonged loss of cooling can cause molten fuel (corium) to collect at the bottom of the vessel. If not cooled, corium can eventually melt through the lower head of the RPV. At TMI, the corium was retained within the vessel. At Fukushima, it is believed to have partially breached the RPVs in Units 1&ndash;3. Modern designs include in-vessel retention strategies (flooding the reactor cavity to cool the outside of the vessel).</p>`
+  },
+  {
+    title: 'Containment Building',
+    subtitle: 'Fourth barrier &mdash; massive reinforced concrete structure',
+    color: '#7c3aed',
+    detail: `<h4>Barrier 4: Containment Building</h4>
+      <p>The containment building is a large, reinforced concrete and steel structure that completely encloses the reactor and its primary systems. It is designed to withstand internal pressures from a loss-of-coolant accident (LOCA), external impacts (aircraft strikes, earthquakes, tornadoes), and to prevent any release of radioactivity to the environment.</p>
+      <p><strong>How it works:</strong> Modern containments consist of a steel liner (for leak-tightness) surrounded by 1&ndash;2 metres of reinforced concrete (for structural strength and radiation shielding). They are designed to contain the full release of radioactive material from a worst-case accident scenario. Containment spray systems and hydrogen recombiners manage pressure and prevent hydrogen explosions. Some advanced designs (AP1000) include a passive containment cooling system that uses natural air circulation and gravity-fed water.</p>
+      <p><strong>Failure mode:</strong> At TMI, the containment performed perfectly &mdash; despite a partial core meltdown, essentially no radioactivity was released. At Fukushima, the older Mark I containments (smaller, designed in the 1960s) were challenged by hydrogen buildup and eventual venting/explosions. The Chernobyl RBMK reactor had no true containment building at all &mdash; a critical design omission that allowed the explosion to release radioactive material directly into the atmosphere.</p>`
+  },
+  {
+    title: 'Exclusion Zone & Emergency Planning',
+    subtitle: 'Fifth barrier &mdash; distance, monitoring, and evacuation',
+    color: '#059669',
+    detail: `<h4>Barrier 5: Exclusion Zone & Emergency Planning</h4>
+      <p>The final layer of defence is not a physical structure but a combination of distance, continuous monitoring, and pre-planned emergency response. Nuclear plants maintain an exclusion zone around the facility and have detailed emergency plans coordinated with local authorities.</p>
+      <p><strong>How it works:</strong> The exclusion zone (typically 1&ndash;3 km radius) ensures no permanent habitation near the plant. Beyond this, emergency planning zones (typically 10&ndash;30 km) have pre-positioned monitoring stations, iodine tablet distribution plans, evacuation routes, and shelter-in-place procedures. Radiation monitors continuously sample air, water, and soil around the plant. In the event of a release, atmospheric dispersion models predict the plume path to guide protective actions.</p>
+      <p><strong>Importance:</strong> This layer exists as a final backup in case all physical barriers fail. The Fukushima evacuation, while challenging, prevented significant radiation exposure to the public. Studies have shown that the health effects from the Fukushima release were minimal compared to the effects of the evacuation itself &mdash; highlighting the importance of well-calibrated emergency response.</p>`
+  }
+];
+
+function renderDefenseLayers() {
+  const container = document.getElementById('defense-layers');
+  container.innerHTML = defenseData.map((layer, i) => `
+    <div class="defense-ring" data-index="${i}" style="background: ${layer.color}11; border-color: ${layer.color}33;">
+      <div class="ring-number" style="background: ${layer.color};">${i + 1}</div>
+      <div class="ring-content">
+        <div class="ring-title">${layer.title}</div>
+        <div class="ring-subtitle">${layer.subtitle}</div>
+      </div>
+    </div>
+  `).join('');
+
+  container.querySelectorAll('.defense-ring').forEach(ring => {
+    ring.addEventListener('click', () => {
+      container.querySelectorAll('.defense-ring').forEach(r => r.classList.remove('active'));
+      ring.classList.add('active');
+      const idx = parseInt(ring.dataset.index);
+      const detail = document.getElementById('defense-detail');
+      detail.innerHTML = defenseData[idx].detail;
+      detail.style.borderColor = defenseData[idx].color;
+    });
+  });
+}
+renderDefenseLayers();
+
+// ---- Section 3: Safety Concepts ----
+const conceptsData = {
+  'negative-temp': {
+    icon: '&#9688;',
+    iconBg: '#dc262620',
+    iconColor: 'var(--red)',
+    title: 'Negative Temperature Coefficient of Reactivity',
+    description: 'In reactors with a negative temperature coefficient, as the fuel or moderator temperature increases, the rate of the nuclear chain reaction automatically decreases. This is a fundamental self-regulating mechanism built into the physics of most modern reactor designs.',
+    physics: `<h4>How Doppler Broadening Creates Self-Regulation</h4>
+      <p>As fuel temperature rises, the thermal motion of uranium-238 atoms increases. This broadens the range of neutron energies at which U-238 absorbs neutrons (resonance absorption), effectively "soaking up" more neutrons before they can cause fission in U-235. The result: higher temperature &rarr; more parasitic absorption &rarr; fewer fissions &rarr; less power &rarr; temperature drops back down.</p>
+      <p>This effect is instantaneous (operates on the timescale of neutron thermalisation, microseconds) and requires no mechanical systems, human intervention, or external power. It is arguably the single most important safety feature in nuclear reactor design.</p>`,
+    hasDemo: true
+  },
+  'negative-void': {
+    icon: '&#9675;',
+    iconBg: '#2563eb20',
+    iconColor: 'var(--blue)',
+    title: 'Negative Void Coefficient of Reactivity',
+    description: 'The void coefficient describes how reactivity changes when steam bubbles (voids) form in the coolant. In a reactor with a negative void coefficient, the formation of steam bubbles reduces reactivity and slows the chain reaction. This is critical for safety during loss-of-coolant scenarios.',
+    physics: `<h4>Why Voids Matter &mdash; And Why Chernobyl Was Different</h4>
+      <p>In a PWR, water serves as both coolant and moderator (it slows neutrons to the thermal energies needed for U-235 fission). If the water boils and forms steam bubbles, the moderating effect is reduced. Fewer neutrons are thermalised, fewer fissions occur, and power decreases. This is a <strong>negative</strong> void coefficient &mdash; inherently self-stabilising.</p>
+      <p>The Chernobyl RBMK reactor was critically different: it used graphite (solid) as the moderator and water only as the coolant. When water boiled away, the graphite moderator remained, but the neutron-absorbing effect of the water was lost. This meant that void formation <em>increased</em> reactivity &mdash; a <strong>positive</strong> void coefficient. This positive feedback loop was the primary physics mechanism behind the Chernobyl explosion.</p>
+      <p>All modern reactor designs are required to have a negative void coefficient under all operating conditions.</p>`,
+    hasDemo: false
+  },
+  'passive-safe': {
+    icon: '&#9211;',
+    iconBg: '#05966920',
+    iconColor: 'var(--green)',
+    title: 'Passive Safety Systems',
+    description: 'Passive safety systems rely on natural physical phenomena &mdash; gravity, natural convection, compressed gas, material properties &mdash; rather than active components (pumps, diesel generators, operator actions) to maintain safety functions. They work even during a complete station blackout.',
+    physics: `<h4>Examples of Passive Safety Mechanisms</h4>
+      <p><strong>Gravity-driven cooling (AP1000):</strong> Large water tanks are placed above the reactor. In an emergency, valves open (fail-open design) and gravity feeds water into the core. No pumps needed.</p>
+      <p><strong>Natural circulation (many Gen III+):</strong> The reactor and steam generators are arranged so that hot coolant naturally rises and cool coolant naturally sinks, maintaining flow without pumps. This can remove decay heat indefinitely.</p>
+      <p><strong>Passive containment cooling (AP1000):</strong> The steel containment vessel is cooled by natural air convection on the outside and gravity-fed water on the inside. Heat is transferred from the containment to the atmosphere without any active systems.</p>
+      <p><strong>Accumulator injection:</strong> Large tanks of borated water are kept under nitrogen pressure. If primary system pressure drops (pipe break), the accumulators automatically inject water into the core. No operator action or electrical power needed.</p>
+      <p><strong>Core catcher (EPR, VVER-1200):</strong> A crucible-like structure beneath the reactor vessel is designed to catch, spread, and cool molten fuel (corium) if it breaches the vessel. The spreading increases surface area, and sacrificial material mixes with the corium to lower its temperature.</p>`,
+    hasDemo: false
+  },
+  'walkaway-safe': {
+    icon: '&#9757;',
+    iconBg: '#7c3aed20',
+    iconColor: 'var(--purple)',
+    title: 'Walkaway-Safe Design',
+    description: 'A walkaway-safe reactor is one where, if all operators leave, all external power is lost, and no intervention occurs, the reactor will safely shut itself down and cool itself without any fuel damage or release of radioactivity. This is the gold standard of nuclear safety.',
+    physics: `<h4>How Can a Reactor Be Walkaway-Safe?</h4>
+      <p>Walkaway safety requires that <em>all</em> safety functions (shutdown, cooling, containment) can be performed passively and indefinitely:</p>
+      <p><strong>Shutdown:</strong> Strong negative temperature coefficients automatically reduce the chain reaction as temperatures rise. Some designs add passive control rod insertion (gravity-dropped or magnetically held rods that release on power loss).</p>
+      <p><strong>Decay heat removal:</strong> After shutdown, the fuel continues to generate heat from radioactive decay (~7% of full power initially, declining over hours and days). Walkaway-safe designs must remove this heat passively. Methods include: natural air circulation (HTGR), radiation from the vessel to a passive heat sink, or natural circulation of coolant.</p>
+      <p><strong>Demonstrated examples:</strong></p>
+      <ul style="margin: 8px 0 0 20px; font-size: 0.88rem; color: var(--slate); line-height: 1.8;">
+        <li><strong>EBR-II (1986):</strong> Operators deliberately shut off all cooling pumps at full power. The sodium-cooled fast reactor safely shut itself down with zero operator intervention, using only inherent reactivity feedback and natural circulation.</li>
+        <li><strong>HTR-10 (2004):</strong> Chinese pebble-bed HTGR had all cooling systems deliberately shut off. The reactor passively cooled itself through radiation and conduction, with fuel temperatures never exceeding safe limits.</li>
+        <li><strong>MSRE (1969):</strong> The Molten Salt Reactor Experiment demonstrated the freeze plug: when power was lost, the plug melted and fuel drained by gravity to passively cooled tanks.</li>
+      </ul>`,
+    hasDemo: false
+  },
+  'doppler': {
+    icon: '&#8776;',
+    iconBg: '#0d948820',
+    iconColor: 'var(--teal)',
+    title: 'Doppler Broadening Effect',
+    description: 'Doppler broadening is the quantum mechanical mechanism behind the negative temperature coefficient. It is one of the most important inherent safety phenomena in nuclear physics, providing instantaneous self-regulation of the fission chain reaction.',
+    physics: `<h4>The Quantum Mechanics of Reactor Self-Regulation</h4>
+      <p>Atomic nuclei can absorb neutrons at very specific energies called <strong>resonances</strong>. At low temperatures, these resonances are narrow, sharp peaks in the absorption cross-section (probability of absorption).</p>
+      <p>As temperature increases, atoms vibrate more vigorously (higher thermal motion). Due to the Doppler effect, a neutron approaching a fast-moving nucleus "sees" a different relative velocity, and therefore a different effective energy. This effectively <strong>broadens</strong> the resonance peaks &mdash; they become wider but shorter.</p>
+      <p>The key insight: although the peaks get shorter, the broadened wings overlap with a much wider range of neutron energies. The net effect is that <em>more</em> neutrons are absorbed by U-238 (parasitic captures that do not cause fission). Fewer neutrons are available to cause fission in U-235, and the chain reaction slows down.</p>
+      <p>This effect is:</p>
+      <ul style="margin: 8px 0 0 20px; font-size: 0.88rem; color: var(--slate); line-height: 1.8;">
+        <li><strong>Instantaneous</strong> &mdash; responds in microseconds</li>
+        <li><strong>Self-correcting</strong> &mdash; stronger at higher temperatures</li>
+        <li><strong>Inherent</strong> &mdash; requires no engineered systems</li>
+        <li><strong>Universal</strong> &mdash; present in all reactors using uranium fuel</li>
+      </ul>`,
+    hasDemo: false
+  },
+  'xenon': {
+    icon: 'Xe',
+    iconBg: '#0891b220',
+    iconColor: 'var(--cyan)',
+    title: 'Xenon Poisoning & Reactor Control',
+    description: 'Xenon-135 is a fission product that is the strongest known neutron absorber. Its buildup and decay create complex dynamics that affect reactor control. Mismanagement of xenon dynamics was a contributing factor in the Chernobyl disaster.',
+    physics: `<h4>The Xenon-135 Transient Problem</h4>
+      <p>During normal operation, xenon-135 is continuously produced (mainly from the decay of iodine-135, another fission product) and continuously destroyed (by absorbing neutrons). An equilibrium is reached where production equals destruction.</p>
+      <p>When a reactor is shut down or power is reduced, neutron flux drops but iodine-135 continues to decay into xenon-135. With fewer neutrons to destroy it, xenon-135 accumulates &mdash; this is called a <strong>xenon pit</strong>. The xenon absorbs so many neutrons that restarting the reactor becomes temporarily impossible (typically 24&ndash;48 hours).</p>
+      <p><strong>Connection to Chernobyl:</strong> The operators at Chernobyl Unit 4 attempted to raise power during a deep xenon pit by withdrawing almost all control rods &mdash; far beyond safe operating limits. When the xenon eventually burned away, the reactor surged to over 100 times its rated power in a fraction of a second. Combined with the positive void coefficient, this caused the steam explosion that destroyed the reactor.</p>
+      <p>Modern reactor control systems are designed to prevent operators from reaching such dangerous configurations, and training now emphasises the extreme danger of operating in a xenon-poisoned state with insufficient control rod margin.</p>`,
+    hasDemo: false
+  }
+};
+
+function renderConcepts() {
+  const panels = document.getElementById('concept-panels');
+  panels.innerHTML = Object.entries(conceptsData).map(([key, data]) => `
+    <div class="concept-content ${key === 'negative-temp' ? 'active' : ''}" data-concept="${key}">
+      <div class="concept-header">
+        <div class="concept-icon" style="background: ${data.iconBg}; color: ${data.iconColor}; font-size: 1.5rem; font-weight: 800;">${data.icon}</div>
+        <div class="concept-text">
+          <h3>${data.title}</h3>
+          <p>${data.description}</p>
+        </div>
+      </div>
+      <div class="physics-box">
+        ${data.physics}
+      </div>
+      ${data.hasDemo ? `
+      <div class="demo-panel">
+        <h4>Interactive: Temperature vs. Reactivity</h4>
+        <p style="font-size: 0.82rem; color: var(--slate-light); margin-bottom: 16px;">Drag the slider to increase fuel temperature and observe how reactivity automatically decreases in a reactor with a negative temperature coefficient.</p>
+        <div class="temp-slider-row">
+          <label>Fuel Temperature</label>
+          <input type="range" id="temp-slider" min="300" max="2500" value="600" step="50">
+          <span class="temp-value" id="temp-display">600 &deg;C</span>
+        </div>
+        <div style="margin-bottom: 8px;">
+          <div style="font-size: 0.78rem; color: var(--slate-light); margin-bottom: 4px;">Reactivity (k-effective relative to critical)</div>
+          <div class="reactivity-bar-container">
+            <div class="reactivity-center"></div>
+            <div class="reactivity-bar" id="reactivity-bar" style="width: 50%; background: var(--green-light);">k = 1.000</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--slate-light); margin-top: 4px;">
+            <span>Subcritical (k &lt; 1)</span>
+            <span>Critical (k = 1)</span>
+            <span>Supercritical (k &gt; 1)</span>
+          </div>
+        </div>
+        <div id="temp-explanation" style="font-size: 0.82rem; color: var(--slate-light); margin-top: 12px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 6px;"></div>
+      </div>
+      ` : ''}
+    </div>
+  `).join('');
+
+  // Temperature slider demo
+  const tempSlider = document.getElementById('temp-slider');
+  if (tempSlider) {
+    tempSlider.addEventListener('input', updateTempDemo);
+    updateTempDemo();
+  }
+}
+
+function updateTempDemo() {
+  const slider = document.getElementById('temp-slider');
+  const temp = parseInt(slider.value);
+  document.getElementById('temp-display').innerHTML = `${temp} &deg;C`;
+
+  // Simulate negative temperature coefficient
+  // k = 1.005 - alpha * (T - T_ref), where alpha ~ 2.5 pcm/degC
+  const kRef = 1.005;
+  const tRef = 300;
+  const alpha = 0.0000028;
+  const k = Math.max(0.95, kRef - alpha * (temp - tRef));
+  const percent = ((k - 0.95) / (1.01 - 0.95)) * 100;
+
+  const bar = document.getElementById('reactivity-bar');
+  bar.style.width = Math.max(5, percent) + '%';
+  bar.textContent = `k = ${k.toFixed(4)}`;
+
+  if (k >= 1.0) {
+    bar.style.background = 'var(--amber-light)';
+  } else if (k >= 0.99) {
+    bar.style.background = 'var(--green-light)';
+  } else {
+    bar.style.background = 'var(--blue-light)';
+  }
+
+  const explanation = document.getElementById('temp-explanation');
+  if (temp <= 400) {
+    explanation.textContent = 'At low operating temperature, the reactor has slight excess reactivity (k > 1) to allow for fuel burnup. Control rods compensate for this excess.';
+  } else if (temp <= 800) {
+    explanation.textContent = 'As temperature rises, Doppler broadening in U-238 increases parasitic neutron absorption. Reactivity decreases automatically \u2014 no operator action needed.';
+  } else if (temp <= 1500) {
+    explanation.textContent = 'At elevated temperatures, the strong negative feedback has pushed reactivity well below critical. The chain reaction is slowing down and the reactor is reducing its own power output.';
+  } else {
+    explanation.textContent = 'At very high temperatures, the reactor is deeply subcritical. The chain reaction has essentially stopped due to massive Doppler absorption. This demonstrates why a thermal runaway is physically self-limiting in reactors with negative temperature coefficients.';
+  }
+}
+
+document.querySelectorAll('.concept-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.concept-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelectorAll('.concept-content').forEach(c => c.classList.remove('active'));
+    const target = document.querySelector(`.concept-content[data-concept="${tab.dataset.concept}"]`);
+    if (target) target.classList.add('active');
+
+    // Re-init demo if visible
+    const tempSlider = document.getElementById('temp-slider');
+    if (tempSlider) {
+      updateTempDemo();
+    }
+  });
+});
+
+renderConcepts();
+
+// ---- Section 4: Historical Accidents ----
+const accidentData = {
+  tmi: {
+    title: 'Three Mile Island &mdash; March 28, 1979',
+    summary: 'The worst commercial nuclear accident in US history resulted in a partial core meltdown, but the containment building performed its function and essentially no radioactivity was released to the public.',
+    timeline: [
+      { time: '4:00 AM', text: 'A malfunction in the secondary cooling system (feedwater pumps trip) causes pressure to rise in the primary system. The reactor automatically SCRAMs (shuts down) within seconds.', safe: false },
+      { time: '4:00:08 AM', text: 'The pilot-operated relief valve (PORV) opens to relieve pressure \u2014 this is normal. However, it fails to close again after pressure drops. This begins a loss-of-coolant accident (LOCA), though operators don\'t realise it.', safe: false },
+      { time: '4:02 AM', text: 'Emergency core cooling system (ECCS) activates automatically and begins injecting water into the core. This is the correct response.', safe: true },
+      { time: '4:05\u20134:10 AM', text: 'Operators, misreading instruments and seeing a high pressuriser level (caused by steam, not water), manually override the ECCS and throttle back emergency cooling. This is the critical human error.', safe: false },
+      { time: '5:00\u20136:00 AM', text: 'With the PORV stuck open and reduced cooling, the core begins to uncover. Fuel temperatures soar, cladding fails, and hydrogen is generated from zirconium-steam reactions.', safe: false },
+      { time: '6:22 AM', text: 'Operators finally discover the stuck-open PORV (by checking the drain tank temperature downstream) and close a backup block valve, stopping the coolant loss.', safe: true },
+      { time: '7:00+ AM', text: 'About 50% of the core has melted. However, the containment building holds. Radioactive noble gases are released through the ventilation stack, but solid and liquid fission products are contained.', safe: false },
+    ],
+    failure: {
+      title: 'What Failed at TMI',
+      points: [
+        'A mechanical failure (stuck-open PORV) initiated the event, but it was manageable',
+        'Misleading instrumentation: operators had no direct indication of PORV position, and the pressuriser level reading was misinterpreted',
+        'The critical failure was human: operators overrode the automatic safety systems that were responding correctly',
+        'Training had not prepared operators for this specific failure sequence',
+        'There was no direct measurement of core water level \u2014 a critical missing instrument',
+      ]
+    },
+    lesson: 'TMI proved that containment works: despite a 50% core meltdown, the public received minimal radiation exposure (less than a chest X-ray for nearby residents). It led to sweeping reforms: improved operator training, better instrumentation, the creation of the Institute of Nuclear Power Operations (INPO), and the development of symptom-based emergency procedures rather than event-based procedures. Crucially, no one was killed or injured.'
+  },
+  chernobyl: {
+    title: 'Chernobyl &mdash; April 26, 1986',
+    summary: 'A flawed reactor design combined with operator violations during a safety test led to a steam explosion and fire that destroyed Reactor 4, releasing massive amounts of radioactivity. It remains the worst nuclear disaster in history.',
+    timeline: [
+      { time: 'April 25, 1:06 AM', text: 'Power reduction begins for a planned safety test: can the turbine\'s residual rotation power the emergency water pumps during a station blackout? The test had been postponed from the day shift (who were trained for it).', safe: false },
+      { time: 'April 25, 2:00 PM', text: 'Grid controller requests the reactor stay online for afternoon demand. The test is delayed. When it resumes, the night shift operators (who were not trained for the test) are on duty.', safe: false },
+      { time: 'April 26, 12:28 AM', text: 'During power reduction, an operator error causes power to plummet to ~30 MW (target was 700\u20131000 MW). The reactor enters a deep xenon pit \u2014 xenon-135 buildup is poisoning the chain reaction.', safe: false },
+      { time: '12:30\u20131:00 AM', text: 'To raise power from the xenon pit, operators withdraw nearly all control rods \u2014 far below the minimum safe operating limit of 30 rods. Only 6\u20138 effective rods remain. This violates multiple safety regulations.', safe: false },
+      { time: '1:23:04 AM', text: 'The test begins. Operators disable the emergency core cooling system and other safety interlocks to prevent them from interrupting the test.', safe: false },
+      { time: '1:23:40 AM', text: 'Operators press the emergency shutdown button (AZ-5). Due to a fatal design flaw, the control rods have graphite tips that initially increase reactivity as they enter the core before the absorber section reaches the fuel zone.', safe: false },
+      { time: '1:23:44 AM', text: 'The reactor surges to approximately 30,000 MW \u2014 100 times its rated power \u2014 in about 4 seconds. A massive steam explosion destroys the reactor core and blows off the 1,000-tonne reactor lid.', safe: false },
+      { time: '1:23:50 AM', text: 'A second explosion (likely a steam or hydrogen explosion) further destroys the building. The graphite moderator catches fire, burning for 10 days and lofting radioactive material high into the atmosphere.', safe: false },
+    ],
+    failure: {
+      title: 'What Failed at Chernobyl',
+      points: [
+        'Positive void coefficient: the RBMK design became MORE reactive when coolant boiled \u2014 a fundamental physics flaw not present in Western PWR/BWR designs',
+        'Graphite-tipped control rods: the AZ-5 emergency shutdown actually caused a momentary reactivity spike before it could shut down the reactor',
+        'No containment building: the RBMK reactor had only a partial biological shield, not a pressure-rated containment structure',
+        'Operators disabled multiple safety systems and violated procedures to continue the test',
+        'Xenon poisoning was mismanaged: withdrawing nearly all control rods to overcome the xenon pit left the reactor with zero safety margin',
+        'Institutional culture: the safety test had been poorly planned, staff were not properly trained, and there was no independent safety review',
+      ]
+    },
+    lesson: 'Chernobyl demonstrated the catastrophic consequences of a positive void coefficient combined with inadequate containment and safety culture failures. The RBMK design was fundamentally flawed in ways that Western light-water reactors are not. Post-Chernobyl, all RBMK reactors were modified to reduce the positive void coefficient, graphite rod tips were replaced, and the minimum control rod insertion requirement was raised. Globally, it led to the creation of the World Association of Nuclear Operators (WANO) and strengthened the principle that reactor designs must have inherently negative reactivity coefficients.'
+  },
+  fukushima: {
+    title: 'Fukushima Daiichi &mdash; March 11, 2011',
+    summary: 'A magnitude 9.0 earthquake followed by a 14-metre tsunami caused a station blackout at the Fukushima Daiichi nuclear power plant, leading to core meltdowns in three reactors. The root cause was inadequate protection against extreme external events.',
+    timeline: [
+      { time: '2:46 PM, Mar 11', text: 'The Tohoku earthquake (M9.0) strikes. All operating reactors (Units 1, 2, 3) automatically SCRAM successfully within seconds. The earthquake damages off-site power lines, cutting grid connection.', safe: true },
+      { time: '2:46\u20133:30 PM', text: 'Emergency diesel generators start automatically and begin powering cooling systems. The reactors are shut down but require continuous cooling to remove decay heat from the fuel. Everything is working as designed.', safe: true },
+      { time: '3:35 PM', text: 'A 14-metre tsunami \u2014 far exceeding the plant\'s 5.7-metre design basis \u2014 overwhelms the seawalls and floods the diesel generator rooms in the basements, destroying them. Battery backup power lasts only 8 hours for Unit 1 (longer for Units 2 and 3).', safe: false },
+      { time: 'Evening, Mar 11', text: 'Station blackout (SBO): with no AC or DC power, operators cannot circulate coolant. Decay heat causes water to boil off, uncovering the fuel cores. Operators attempt to vent containment and inject seawater but face enormous difficulties.', safe: false },
+      { time: 'Mar 12\u201315', text: 'Hydrogen generated from zirconium-steam reactions at high temperatures accumulates in the reactor buildings. Hydrogen explosions destroy the reactor buildings of Units 1, 3, and 4 (Unit 4 was defueled but received hydrogen from Unit 3 via shared ductwork).', safe: false },
+      { time: 'Following weeks', text: 'Stabilisation efforts continue. Seawater and later freshwater injection eventually cools the damaged cores. Contaminated water management becomes a long-term challenge.', safe: false },
+    ],
+    failure: {
+      title: 'What Failed at Fukushima',
+      points: [
+        'Inadequate tsunami protection: the plant\'s seawall was designed for a 5.7 m tsunami; the actual wave was 14 m. Historical records of similar tsunamis existed but were not incorporated into the design basis',
+        'Vulnerable diesel generators: the backup generators were located in basement rooms that flooded. Placing them at higher elevations would have prevented the station blackout entirely',
+        'Common-mode failure: all emergency power systems were vulnerable to the same flooding event, violating the principle of diversity in safety systems',
+        'Inadequate severe accident management: equipment and procedures for beyond-design-basis events were insufficient. Operators struggled to vent containment and inject water without power',
+        'The Mark I containment design (1960s era) had limited capacity and no passive cooling features',
+        'Regulatory complacency: the Nuclear and Industrial Safety Agency (NISA) had not required upgrades to address known tsunami risks',
+      ]
+    },
+    lesson: 'Fukushima demonstrated that external hazards (earthquakes, tsunamis, floods) must be rigorously analysed and that common-mode failures can defeat multiple safety systems simultaneously. Post-Fukushima, the global nuclear industry undertook extensive "stress tests," hardened plants against extreme external events, added portable emergency equipment (FLEX), installed passive hydrogen recombiners, and raised diesel generators above flood levels. The accident accelerated development of passively safe reactor designs (AP1000, HTGR, MSR) that do not depend on external power for core cooling. Notably, the nearby Onagawa nuclear plant \u2014 which was closer to the earthquake epicentre but had a higher seawall and better-protected diesel generators \u2014 safely shut down with no damage.'
+  }
+};
+
+function renderAccident(key) {
+  const data = accidentData[key];
+  const container = document.getElementById('accident-detail-container');
+  container.innerHTML = `
+    <div class="accident-detail">
+      <h3>${data.title}</h3>
+      <p style="font-size: 0.9rem; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">${data.summary}</p>
+
+      <h4 class="subsection-title" style="margin-top: 0;">Sequence of Events</h4>
+      <div class="timeline">
+        ${data.timeline.map(item => `
+          <div class="timeline-item ${item.safe ? 'safe' : ''}">
+            <div class="timeline-time">${item.time}</div>
+            <div class="timeline-text">${item.text}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="failure-box">
+        <h4>${data.failure.title}</h4>
+        <ul>
+          ${data.failure.points.map(p => `<li>${p}</li>`).join('')}
+        </ul>
+      </div>
+
+      <div class="lesson-box">
+        <h4>Lessons Learned</h4>
+        <p>${data.lesson}</p>
+      </div>
+    </div>
+  `;
+}
+
+document.querySelectorAll('.accident-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.accident-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    renderAccident(card.dataset.accident);
+  });
+});
+
+renderAccident('tmi');
+
+// ---- Section 5: Advanced Reactors ----
+const advancedData = {
+  msr: {
+    title: 'Molten Salt Reactor &mdash; Safety Through Chemistry',
+    content: `
+      <p style="font-size: 0.9rem; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">In a molten salt reactor, the nuclear fuel (uranium or thorium fluoride salts) is dissolved directly in a liquid salt coolant (typically FLiBe &mdash; lithium fluoride and beryllium fluoride). This fundamentally different approach eliminates several failure modes that afflict solid-fuel reactors.</p>
+
+      <div class="physics-comparison">
+        <div class="physics-card">
+          <h5>The Freeze Plug</h5>
+          <p>A small section of the drain pipe beneath the reactor is actively cooled to keep a "plug" of frozen salt in place. If power is lost, cooling stops, and the plug melts within minutes. The entire fuel salt inventory drains by gravity into passively cooled dump tanks with geometry designed to prevent criticality. This requires zero operator action, zero external power, and zero moving parts beyond the salt itself.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Atmospheric Pressure Operation</h5>
+          <p>Unlike a PWR (155 bar) or BWR (75 bar), molten salt reactors operate at or near atmospheric pressure. The salt has a boiling point of approximately 1,400 &deg;C &mdash; far above operating temperatures (~650&ndash;700 &deg;C). This eliminates the risk of pressurised explosions, loss-of-coolant accidents from pipe breaks, and the need for massive pressure vessels. If a pipe breaks, the salt simply solidifies as it cools.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Strong Negative Temperature Coefficient</h5>
+          <p>As the fuel salt heats up, it expands. This expansion reduces the density of fissile atoms in the core, reducing reactivity and slowing the chain reaction. This thermal expansion feedback is in addition to Doppler broadening, giving MSRs an exceptionally strong self-regulating tendency. The liquid fuel also allows fission product gases (xenon, krypton) to be continuously removed, preventing xenon poisoning issues.</p>
+        </div>
+        <div class="physics-card">
+          <h5>No Fuel Meltdown Possible</h5>
+          <p>The concept of a "meltdown" is meaningless for an MSR &mdash; the fuel is already a liquid under normal operation. There is no solid fuel to overheat, no cladding to fail, and no zirconium-steam reaction to generate hydrogen. In an overpower scenario, the salt simply heats up, expands, and reduces its own reactivity. In the worst case, it drains to the dump tanks.</p>
+        </div>
+      </div>
+
+      <div class="physics-box" style="margin-top: 20px;">
+        <h4>Why MSRs are Safer Than PWRs</h4>
+        <p>A PWR stores years' worth of fission products in solid fuel that must be continuously cooled under high pressure. An MSR operates at atmospheric pressure with fuel that physically cannot melt down. The freeze plug provides a fully passive emergency drain that was demonstrated experimentally at Oak Ridge National Laboratory's Molten Salt Reactor Experiment (MSRE, 1965&ndash;1969). Every major accident mechanism of PWRs &mdash; loss of coolant, fuel melt, hydrogen generation, high-pressure failure &mdash; is either eliminated or fundamentally mitigated by MSR physics.</p>
+      </div>
+    `
+  },
+  htgr: {
+    title: 'High-Temperature Gas Reactor &mdash; Safety Through Materials',
+    content: `
+      <p style="font-size: 0.9rem; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">HTGRs use thousands of tiny TRISO (TRi-structural ISOtropic) fuel particles embedded in graphite, cooled by chemically inert helium gas. The fundamental safety philosophy is to make the fuel itself the primary containment barrier &mdash; each TRISO particle is a micro-containment system.</p>
+
+      <div class="physics-comparison">
+        <div class="physics-card">
+          <h5>TRISO Fuel Particles</h5>
+          <p>Each TRISO particle is less than 1 mm in diameter and consists of a uranium kernel surrounded by layers of pyrolytic carbon and silicon carbide. These coatings are stable up to 1,600&deg;C (standard) or even 1,800&deg;C (advanced designs). Even in a complete loss of coolant, the maximum fuel temperature in a properly designed HTGR never exceeds ~1,600&deg;C. The fuel simply cannot reach conditions that would cause fission product release. This has been repeatedly demonstrated in real reactor tests.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Graphite Thermal Inertia</h5>
+          <p>The graphite moderator has an enormous thermal mass and operates well below its sublimation point (~3,600&deg;C). In a loss-of-coolant event, the graphite absorbs heat from the fuel very slowly. The temperature rise is measured in degrees per hour, not degrees per second. This gives operators days, not minutes, to respond. More importantly, the reactor can simply radiate its decay heat through the vessel walls to the surrounding air or ground &mdash; no active cooling needed.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Helium Coolant</h5>
+          <p>Helium is chemically inert (noble gas) &mdash; it cannot react with fuel, cladding, or structural materials. There is no possibility of steam explosions (as in water-cooled reactors) or sodium fires (as in SFRs). Helium does not become significantly radioactive under neutron bombardment (unlike water, which produces tritium and nitrogen-16). If helium leaks, it simply disperses harmlessly into the atmosphere.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Demonstrated Walkaway Safety</h5>
+          <p>The AVR (Germany, 1966&ndash;1988) and HTR-10 (China, 2000&ndash;present) have both demonstrated loss-of-coolant scenarios without fuel damage. In the HTR-10 test (2004), all helium circulators were shut off and the reactor depressurised. Temperature rose slowly, peaked below TRISO limits, and declined through passive heat radiation. Zero fission products were released. No operator action was needed or taken.</p>
+        </div>
+      </div>
+
+      <div class="physics-box" style="margin-top: 20px;">
+        <h4>Why HTGRs are Safer Than PWRs</h4>
+        <p>The fundamental difference is that an HTGR cannot physically reach temperatures that release fission products, even in the worst conceivable accident. In a PWR, loss of coolant leads to fuel damage within hours. In an HTGR, loss of coolant leads to a slow temperature rise that peaks below the fuel's failure threshold and then naturally declines. This is not a matter of probability or redundancy &mdash; it is a deterministic safety case based on material properties and thermal physics. The reactor is safe not because multiple backup systems work, but because the laws of thermodynamics make fuel failure physically impossible.</p>
+      </div>
+    `
+  },
+  pwr: {
+    title: 'Pressurised Water Reactor &mdash; Proven but Active Safety',
+    content: `
+      <p style="font-size: 0.9rem; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">The PWR is the most widely deployed reactor type worldwide (~65% of operating reactors). Its safety record is excellent, and modern Gen III+ designs (AP1000, EPR) incorporate significant passive safety improvements. However, PWRs fundamentally rely on active cooling to manage decay heat.</p>
+
+      <div class="physics-comparison">
+        <div class="physics-card">
+          <h5>Active Cooling Requirement</h5>
+          <p>After shutdown, uranium fuel continues producing heat from radioactive decay of fission products (~7% of rated power initially, declining to ~1% after one day). In a PWR, this heat must be actively removed by circulating water. If all cooling is lost (station blackout), core damage can begin within 1&ndash;4 hours depending on the reactor design. This was the fundamental challenge at Fukushima.</p>
+        </div>
+        <div class="physics-card">
+          <h5>High-Pressure System</h5>
+          <p>PWRs operate at ~155 bar (2,250 psi) to keep water liquid at ~315&deg;C. This stored energy means that pipe breaks can cause rapid loss of coolant (blowdown). The high pressure also means that the reactor vessel and piping must be extremely robust, and that any breach releases flashing water/steam with great force. Emergency Core Cooling Systems (ECCS) must inject water against this pressure.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Inherent Safety Features</h5>
+          <p>PWRs do have important inherent safety features: negative temperature coefficient (Doppler broadening), negative void coefficient (water is both moderator and coolant), and gravity-dropped control rods. These physics-based features provide automatic shutdown capability and have been demonstrated in numerous transient events.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Gen III+ Improvements</h5>
+          <p>Modern designs like the AP1000 (Westinghouse) have significantly enhanced safety: passive core cooling using gravity-fed water tanks, passive containment cooling using natural air circulation, 72-hour station blackout capability without operator action, and simplified designs with fewer pumps, valves, and piping (reducing failure points). These represent a major step toward passive safety, though they still ultimately require water inventory.</p>
+        </div>
+      </div>
+
+      <div class="physics-box" style="margin-top: 20px;">
+        <h4>How PWR Safety Compares</h4>
+        <p>PWRs are safe, reliable, and well-understood after 60+ years of operational experience. Their safety is achieved through engineered redundancy (multiple backup cooling systems), defence in depth (multiple physical barriers), and strong negative reactivity coefficients. However, their safety case is fundamentally probabilistic &mdash; it relies on the extremely low probability that all backup systems fail simultaneously. MSRs and HTGRs, by contrast, offer deterministic safety &mdash; the laws of physics prevent fuel damage regardless of system failures. This is the key distinction between "safe enough" (PWR) and "physically cannot melt down" (MSR/HTGR).</p>
+      </div>
+    `
+  },
+  sfr: {
+    title: 'Sodium-Cooled Fast Reactor &mdash; Safety Through Feedback',
+    content: `
+      <p style="font-size: 0.9rem; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">SFRs use liquid sodium as a coolant, which has exceptional heat transfer properties and operates at atmospheric pressure. The EBR-II experimental reactor at Argonne National Laboratory provided one of the most dramatic demonstrations of passive safety ever conducted.</p>
+
+      <div class="physics-comparison">
+        <div class="physics-card">
+          <h5>The EBR-II Safety Tests (1986)</h5>
+          <p>In April 1986 (just weeks before Chernobyl), engineers at EBR-II deliberately created the two most dangerous accident scenarios for a nuclear reactor: loss of coolant flow without SCRAM, and loss of heat sink without SCRAM. In both cases, the reactor safely shut itself down using only inherent reactivity feedback and natural circulation of the sodium coolant. No control rods were inserted. No operator action was taken. Temperatures peaked well below damage thresholds and then declined. This was the definitive proof of passive safety in a fast reactor.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Atmospheric Pressure &amp; Superior Coolant</h5>
+          <p>Liquid sodium has a boiling point of 883&deg;C at atmospheric pressure, far above the reactor's operating temperature (~500&deg;C). This provides a massive thermal margin &mdash; over 380&deg;C before boiling even begins. Unlike water in a PWR, there is no need for high-pressure containment of the coolant. Sodium also has superior heat transfer characteristics (thermal conductivity ~100x water), enabling efficient natural circulation for passive decay heat removal.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Waste Burning Capability</h5>
+          <p>SFRs operate in a fast neutron spectrum, which can fission long-lived actinides (neptunium, americium, curium) that constitute the most hazardous and long-lived components of conventional nuclear waste. By recycling spent fuel through an SFR, the waste hazard duration can be reduced from hundreds of thousands of years to a few hundred years &mdash; transforming the waste problem from a geological timescale to a human-manageable one.</p>
+        </div>
+        <div class="physics-card">
+          <h5>Sodium Reactivity Considerations</h5>
+          <p>Sodium does react vigorously with water and air, which requires careful engineering of the intermediate heat exchanger loop and inert gas blankets. However, sodium fires burn relatively slowly (compared to, say, hydrogen explosions in water reactors), and double-walled piping and leak detection systems effectively manage this risk. Modern SFR designs also explore lead or lead-bismuth coolants, which do not react with water or air.</p>
+        </div>
+      </div>
+
+      <div class="physics-box" style="margin-top: 20px;">
+        <h4>Why SFRs Represent a Different Safety Paradigm</h4>
+        <p>The EBR-II tests proved that a properly designed fast reactor can survive the worst accident scenarios without any active safety response. The combination of strong inherent reactivity feedback, excellent natural circulation, atmospheric pressure operation, and massive thermal margins creates a reactor that is passively safe by physics, not just by engineering. Add to this the ability to consume nuclear waste as fuel, and SFRs represent a reactor type that is both safer and more sustainable than conventional designs.</p>
+      </div>
+    `
+  }
+};
+
+function renderAdvancedDetail(key) {
+  const data = advancedData[key];
+  const container = document.getElementById('advanced-detail-container');
+  container.innerHTML = `
+    <div class="advanced-detail">
+      <h3>${data.title}</h3>
+      ${data.content}
+    </div>
+  `;
+}
+
+document.querySelectorAll('.reactor-type-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.reactor-type-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    renderAdvancedDetail(card.dataset.reactor);
+  });
+});
+
+renderAdvancedDetail('msr');
+
+  </script>
+</body>
+</html>

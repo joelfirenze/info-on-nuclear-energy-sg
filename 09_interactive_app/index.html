@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuclear Energy Explorer — Singapore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3/dist/chartjs-plugin-annotation.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <span class="logo-icon">⚛</span>
+        <span class="logo-text">Nuclear Energy Explorer <span class="logo-sg">Singapore</span></span>
+      </div>
+      <p class="header-subtitle">Interactive scenario tool for exploring nuclear energy options</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="section-nav" id="section-nav">
+    <div class="container nav-inner">
+      <button class="nav-btn active" data-section="calculator">Energy Demand</button>
+      <button class="nav-btn" data-section="reactors">Reactor Tech</button>
+      <button class="nav-btn" data-section="land">Land Footprint</button>
+      <button class="nav-btn" data-section="waste">Waste</button>
+      <button class="nav-btn" data-section="carbon">Carbon Impact</button>
+    </div>
+  </nav>
+
+  <main class="container main-content">
+
+    <!-- ===== Section 1: Energy Growth Calculator ===== -->
+    <section class="panel" id="section-calculator">
+      <h2 class="section-title">Energy Demand Calculator</h2>
+      <p class="section-desc">Model Singapore's future electricity demand by adjusting baseline growth and adding new energy-intensive industries.</p>
+
+      <div class="controls-grid">
+        <!-- Growth Rate Slider -->
+        <div class="control-card">
+          <label class="control-label">Annual Growth Rate</label>
+          <div class="slider-row">
+            <input type="range" id="growth-rate" min="1" max="5" step="0.5" value="2">
+            <span class="slider-value" id="growth-rate-value">2.0%</span>
+          </div>
+        </div>
+        <!-- Projection Years -->
+        <div class="control-card">
+          <label class="control-label">Projection Period</label>
+          <div class="slider-row">
+            <input type="range" id="projection-years" min="10" max="30" step="5" value="20">
+            <span class="slider-value" id="projection-years-value">20 years</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Industry Cards -->
+      <h3 class="subsection-title">New Energy-Intensive Industries</h3>
+      <div class="industry-grid" id="industry-grid">
+        <!-- Rendered by calculator.js -->
+      </div>
+
+      <!-- Summary -->
+      <div class="summary-bar" id="demand-summary">
+        <!-- Rendered by calculator.js -->
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-container">
+        <canvas id="demand-chart"></canvas>
+      </div>
+    </section>
+
+    <!-- ===== Section 2: Reactor Technology Selector ===== -->
+    <section class="panel hidden" id="section-reactors">
+      <h2 class="section-title">Reactor Technology Selector</h2>
+      <p class="section-desc">Choose reactor technologies to meet Singapore's projected demand. You can mix multiple types.</p>
+
+      <div class="reactor-categories" id="reactor-categories">
+        <!-- Rendered by reactors.js -->
+      </div>
+
+      <div class="reactor-summary" id="reactor-summary">
+        <!-- Rendered by reactors.js -->
+      </div>
+
+      <div class="reactor-pictograph" id="reactor-pictograph">
+        <!-- Rendered by reactors.js -->
+      </div>
+    </section>
+
+    <!-- ===== Section 3: Land Footprint Visualizer ===== -->
+    <section class="panel hidden" id="section-land">
+      <h2 class="section-title">Land Footprint Visualizer</h2>
+      <p class="section-desc">Compare the physical space needed for nuclear versus gas power generation.</p>
+
+      <div class="land-controls">
+        <label class="toggle-label">
+          <input type="checkbox" id="underground-toggle">
+          <span class="toggle-slider"></span>
+          <span>Underground siting (SG Underground Master Plan)</span>
+        </label>
+      </div>
+
+      <div class="land-comparison" id="land-comparison">
+        <!-- Rendered by land.js -->
+      </div>
+
+      <div class="landmark-comparisons" id="landmark-comparisons">
+        <!-- Rendered by land.js -->
+      </div>
+    </section>
+
+    <!-- ===== Section 4: Waste Visualizer ===== -->
+    <section class="panel hidden" id="section-waste">
+      <h2 class="section-title">Waste Volume Visualizer</h2>
+      <p class="section-desc">Compare waste volumes and hazard timelines between fission and fusion technologies.</p>
+
+      <div class="waste-cubes-row" id="waste-cubes">
+        <!-- Rendered by waste.js -->
+      </div>
+
+      <div class="cask-counter" id="cask-counter">
+        <!-- Rendered by waste.js -->
+      </div>
+
+      <h3 class="subsection-title">Radioactivity Decay Timeline</h3>
+      <div class="chart-container">
+        <canvas id="decay-chart"></canvas>
+      </div>
+    </section>
+
+    <!-- ===== Section 5: Carbon Sequestration Module ===== -->
+    <section class="panel hidden" id="section-carbon">
+      <h2 class="section-title">Carbon Impact</h2>
+      <p class="section-desc">See how nuclear power and direct air capture can reduce Singapore's carbon emissions.</p>
+
+      <div class="carbon-dashboard" id="carbon-dashboard">
+        <!-- Rendered by carbon.js -->
+      </div>
+
+      <div class="carbon-bar-container">
+        <canvas id="carbon-chart"></canvas>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>Nuclear Energy Explorer — Singapore</p>
+      <p class="footer-note">For educational purposes only.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts (order matters) -->
+  <script src="js/data.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/reactors.js"></script>
+  <script src="js/land.js"></script>
+  <script src="js/waste.js"></script>
+  <script src="js/carbon.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
