@@ -44,6 +44,10 @@ Visit the deployed version at **https://joelfirenze.github.io/info-on-nuclear-en
 - [Inter](https://fonts.google.com/specimen/Inter) typeface (Google Fonts CDN)
 - No frameworks, no build tools, no dependencies to install
 
-## Licence
+## Disclaimer
 
 This project provides educational information and does not advocate for or against nuclear energy. All scientific data is sourced from IAEA, NRC, and peer-reviewed literature.
+
+## Licence
+
+This project is licensed under the [MIT License](LICENSE) &mdash; free to use, modify, and distribute with attribution. See the full licence text in [LICENSE](LICENSE).
