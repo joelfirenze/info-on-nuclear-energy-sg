@@ -48,6 +48,12 @@ Visit the deployed version at **https://joelfirenze.github.io/info-on-nuclear-en
 
 This project provides educational information and does not advocate for or against nuclear energy. All scientific data is sourced from IAEA, NRC, and peer-reviewed literature.
 
+## Support
+
+If you find this useful, consider buying me a coffee:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/joelfirenze)
+
 ## Licence
 
 This project is licensed under the [MIT License](LICENSE) &mdash; free to use, modify, and distribute with attribution. See the full licence text in [LICENSE](LICENSE).
