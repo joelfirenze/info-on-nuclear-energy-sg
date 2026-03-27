@@ -408,6 +408,30 @@ body {
   border-color: var(--blue-light);
 }
 
+.reactor-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.reactor-info-btn {
+  background: var(--gray-200);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--slate);
+  flex-shrink: 0;
+  transition: all var(--transition);
+  line-height: 28px;
+  text-align: center;
+  padding: 0;
+}
+.reactor-info-btn:hover { background: var(--blue-light); color: var(--white); }
+.reactor-info-btn.active { background: var(--blue); color: var(--white); }
+
 .reactor-card-name {
   font-weight: 700;
   font-size: 0.95rem;
@@ -438,6 +462,84 @@ body {
 
 .type-fission { background: #fef3c7; color: #92400e; }
 .type-fusion { background: #ede9fe; color: #5b21b6; }
+
+/* Reactor profile panel */
+.reactor-profile {
+  display: none;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--gray-200);
+}
+.reactor-profile.open { display: block; }
+
+.profile-section {
+  margin-bottom: 12px;
+}
+.profile-section h4 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.profile-section p {
+  font-size: 0.8rem;
+  color: var(--navy);
+  line-height: 1.5;
+}
+.profile-section ul {
+  list-style: none;
+  padding: 0;
+}
+.profile-section ul li {
+  font-size: 0.8rem;
+  color: var(--navy);
+  line-height: 1.5;
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 4px;
+}
+.profile-section ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 700;
+}
+
+.profile-waste {
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+}
+.reactor-card.selected .profile-waste {
+  background: #e0edff;
+}
+.profile-waste-stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+.waste-stat {
+  font-size: 0.75rem;
+  color: var(--slate);
+}
+.waste-stat strong {
+  color: var(--amber);
+  font-size: 0.9rem;
+}
+
+.profile-safety-link {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.profile-safety-link:hover { color: var(--blue-light); text-decoration: underline; }
 
 /* Reactor share slider */
 .reactor-share-row {

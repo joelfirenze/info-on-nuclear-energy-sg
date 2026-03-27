@@ -21,8 +21,13 @@ const Reactors = (() => {
             ${reactors.map(r => `
               <div class="reactor-card ${state.selectedReactors[r.id] ? 'selected' : ''}"
                    data-reactor="${r.id}">
-                <div class="reactor-card-name">${r.name}</div>
-                <div class="reactor-card-power">${r.mwe} MWe</div>
+                <div class="reactor-card-header">
+                  <div>
+                    <div class="reactor-card-name">${r.name}</div>
+                    <div class="reactor-card-power">${r.mwe} MWe</div>
+                  </div>
+                  <button class="reactor-info-btn" data-info-toggle="${r.id}" title="Technology profile">ℹ</button>
+                </div>
                 <div class="reactor-card-desc">${r.description}</div>
                 <span class="reactor-card-type type-${r.type}">${r.type}</span>
                 <div class="reactor-share-row">
@@ -31,6 +36,29 @@ const Reactors = (() => {
                     data-reactor-share="${r.id}">
                   <span class="share-value" id="share-${r.id}">${state.selectedReactors[r.id] || 0}%</span>
                 </div>
+                ${r.profile ? `
+                <div class="reactor-profile" id="profile-${r.id}">
+                  <div class="profile-section">
+                    <h4>Technology Overview</h4>
+                    <p>${r.profile.overview}</p>
+                  </div>
+                  <div class="profile-section">
+                    <h4>Safety Characteristics</h4>
+                    <ul>${r.profile.safety.map(s => `<li>${s}</li>`).join('')}</ul>
+                  </div>
+                  <div class="profile-section profile-waste">
+                    <h4>☢ Waste Profile</h4>
+                    <p>${r.profile.wasteProfile}</p>
+                    <div class="profile-waste-stats">
+                      <span class="waste-stat"><strong>${r.wasteM3PerGWYear}</strong> m³/GW·yr</span>
+                      <span class="waste-stat"><strong>${r.decayYears >= 1000 ? (r.decayYears / 1000) + 'k' : r.decayYears}</strong> yr decay</span>
+                    </div>
+                  </div>
+                  <a class="profile-safety-link" href="../10_safety_education/index.html${r.profile.safetyLink.hash}" target="_blank">
+                    ${r.profile.safetyLink.text} →
+                  </a>
+                </div>
+                ` : ''}
               </div>
             `).join('')}
           </div>
@@ -38,10 +66,23 @@ const Reactors = (() => {
       `;
     }).join('');
 
+    // Bind info toggle
+    container.addEventListener('click', (e) => {
+      const infoBtn = e.target.closest('[data-info-toggle]');
+      if (!infoBtn) return;
+      e.stopPropagation();
+      const id = infoBtn.dataset.infoToggle;
+      const profile = document.getElementById('profile-' + id);
+      if (profile) {
+        profile.classList.toggle('open');
+        infoBtn.classList.toggle('active');
+      }
+    });
+
     // Bind click to toggle selection
     container.addEventListener('click', (e) => {
       const card = e.target.closest('.reactor-card');
-      if (!card || e.target.closest('.reactor-share-row')) return;
+      if (!card || e.target.closest('.reactor-share-row') || e.target.closest('[data-info-toggle]')) return;
       const id = card.dataset.reactor;
       if (state.selectedReactors[id]) {
         delete state.selectedReactors[id];
