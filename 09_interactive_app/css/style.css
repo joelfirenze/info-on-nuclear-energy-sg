@@ -801,11 +801,11 @@ body {
   color: var(--slate);
 }
 
-.bmc-banner {
-  display: block;
+.site-footer .bmc-banner {
+  display: inline-block;
   margin-top: 16px;
   padding: 10px 24px;
-  background: #ffdd00;
+  background-color: #ffdd00;
   color: #000;
   border-radius: 8px;
   text-decoration: none;
@@ -814,7 +814,7 @@ body {
   letter-spacing: 0.02em;
   transition: opacity 0.2s;
 }
-.bmc-banner:hover { opacity: 0.85; }
+.site-footer .bmc-banner:hover { opacity: 0.85; }
 
 /* --- Responsive --- */
 @media (max-width: 1024px) {
