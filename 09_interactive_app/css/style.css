@@ -801,19 +801,20 @@ body {
   color: var(--slate);
 }
 
-.bmc-link {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 6px 16px;
+.bmc-banner {
+  display: block;
+  margin-top: 16px;
+  padding: 10px 24px;
   background: #ffdd00;
   color: #000;
-  border-radius: 6px;
+  border-radius: 8px;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.8rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
   transition: opacity 0.2s;
 }
-.bmc-link:hover { opacity: 0.85; }
+.bmc-banner:hover { opacity: 0.85; }
 
 /* --- Responsive --- */
 @media (max-width: 1024px) {
