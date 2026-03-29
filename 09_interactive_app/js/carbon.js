@@ -60,7 +60,7 @@ const Carbon = (() => {
         <div class="carbon-stat-card" style="grid-column:1/-1;border-color:var(--amber);background:#fffbeb;">
           <span class="carbon-stat-value amber">⚠</span>
           <span class="carbon-stat-label">Warning: Not enough nuclear capacity to power all ${dacCount} DAC units.
-            DAC needs ${formatNum(dacCount * 200)} MW but nuclear provides ${formatNum(c.nuclearCapacityMW || 0)} MW.</span>
+            DAC needs ${formatNum(dacCount * 375)} MW but nuclear provides ${formatNum(c.nuclearCapacityMW || 0)} MW.</span>
         </div>
       ` : ''}
     `;

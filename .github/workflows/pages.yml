@@ -27,6 +27,7 @@ jobs:
           mkdir _site
           cp -r 09_interactive_app _site/09_interactive_app
           cp -r 10_safety_education _site/10_safety_education
+          cp -r 11_references _site/11_references
           cat > _site/index.html << 'LANDING'
           <!DOCTYPE html>
           <html lang="en">
@@ -54,6 +55,7 @@ jobs:
               <div class="links">
                 <a href="09_interactive_app/">Energy Scenario Explorer<div class="subtitle">Model nuclear energy scenarios for Singapore</div></a>
                 <a href="10_safety_education/">Nuclear Safety Explorer<div class="subtitle">Learn about nuclear safety, radiation &amp; historical accidents</div></a>
+                <a href="11_references/">References &amp; Sources<div class="subtitle">Full source documentation for every fact and indicator</div></a>
               </div>
             </div>
           </body>
