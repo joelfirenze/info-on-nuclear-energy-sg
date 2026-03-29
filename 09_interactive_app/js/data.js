@@ -3,13 +3,13 @@
 // ============================================================
 
 const SG_BASELINE = {
-  peakDemandMW: 8000,
-  annualTWh: 55,
-  naturalGasPercent: 95,
-  annualCO2Mt: 50,
-  gasEmissionFactor: 0.4, // tCO2/MWh
-  population: 5.9e6,
-  areaKm2: 733,
+  peakDemandMW: 8200,       // EMA 2025: ~8,189 MW actualised peak (Jul 2025)
+  annualTWh: 58,            // EMA 2024: ~59.6 TWh generated; ~58 TWh consumed
+  naturalGasPercent: 94,    // EMA 2024: ~93–95%; 94% is the midpoint
+  annualCO2Mt: 50,          // NCCS: ~50 Mt energy-related CO2 (power sector ~30 Mt; total GHG ~75 MtCO2e)
+  gasEmissionFactor: 0.4,   // EMA Grid Emission Factor 2024: 0.4018 tCO2/MWh
+  population: 6.04e6,       // Dept of Statistics 2025: 6.04 million total population
+  areaKm2: 736,             // SingStat 2025: ~736.3 km² (ongoing reclamation)
 };
 
 const INDUSTRIES = [
@@ -67,8 +67,8 @@ const INDUSTRIES = [
     id: 'direct-air-capture',
     name: 'Direct Air Capture',
     icon: '🌍',
-    minMW: 150,
-    maxMW: 250,
+    minMW: 250,
+    maxMW: 500,
     defaultCount: 0,
     maxCount: 10,
     description: 'CO₂ removal facilities (~1 MtCO₂/yr each)',
@@ -134,9 +134,9 @@ const REACTORS = [
     wasteM3PerGWYear: 20,
     decayYears: 100000,
     type: 'fission',
-    description: 'Light-water SMR, NRC-certified design',
+    description: 'Light-water SMR, NRC design approval (50 MWe 2023, 77 MWe 2025)',
     profile: {
-      overview: 'A light-water small modular reactor using proven pressurised-water technology scaled down to a compact, factory-built module. Each module produces 77 MWe and up to 12 modules can be combined in a single plant. It was the first SMR to receive NRC design certification (2023).',
+      overview: 'A light-water small modular reactor using proven pressurised-water technology scaled down to a compact, factory-built module. Each module produces 77 MWe and up to 12 modules can be combined in a single plant. The 50 MWe version received NRC design certification in January 2023; the uprated 77 MWe design received Standard Design Approval in May 2025.',
       safety: [
         'Passive cooling via natural circulation — no pumps needed for emergency heat removal',
         'Below-ground containment vessel provides physical protection and seismic resilience',
@@ -217,7 +217,7 @@ const REACTORS = [
   },
   {
     id: 'thorcon',
-    name: 'ThorCon IMSR',
+    name: 'ThorCon MSR',
     category: 'molten-salt',
     mwe: 250,
     footprintHa: 3,
@@ -265,14 +265,14 @@ const REACTORS = [
     id: 'cfs-arc',
     name: 'CFS ARC',
     category: 'fusion',
-    mwe: 500,
+    mwe: 400,
     footprintHa: 5,
     wasteM3PerGWYear: 5,
     decayYears: 100,
     type: 'fusion',
     description: 'Commonwealth Fusion Systems, HTS magnets',
     profile: {
-      overview: 'A compact tokamak fusion reactor using high-temperature superconducting (HTS) magnets to achieve a much stronger magnetic field in a smaller device. Fuses deuterium and tritium at over 100 million °C. CFS demonstrated a 20-tesla HTS magnet in 2021, a key milestone toward commercial fusion.',
+      overview: 'A compact tokamak fusion reactor using high-temperature superconducting (HTS) magnets to achieve a much stronger magnetic field in a smaller device. Fuses deuterium and tritium at over 100 million °C. CFS demonstrated a 20-tesla HTS magnet in 2021 and announced a ~400 MWe commercial plant in Virginia.',
       safety: [
         'Fusion plasma contains only a few grams of fuel at any time — no chain reaction possible',
         'If containment is lost, the plasma cools instantly and the reaction stops on its own',
@@ -311,7 +311,7 @@ const LANDMARKS = [
   { name: 'Jurong Island', areaHa: 3200 },
   { name: 'Gardens by the Bay', areaHa: 101 },
   { name: 'Marina Bay Sands site', areaHa: 15.5 },
-  { name: 'Changi Airport T5 (planned)', areaHa: 1080 },
+  { name: 'Changi East Development (incl. T5)', areaHa: 1080 },
   { name: 'Sentosa', areaHa: 500 },
 ];
 

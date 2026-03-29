@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>References &amp; Sources — Nuclear Energy in Singapore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0f172a;
+  --navy-light: #1e293b;
+  --blue: #2563eb;
+  --blue-light: #3b82f6;
+  --green: #059669;
+  --green-light: #10b981;
+  --amber: #d97706;
+  --amber-light: #f59e0b;
+  --purple: #7c3aed;
+  --red: #dc2626;
+  --slate: #64748b;
+  --slate-light: #94a3b8;
+  --white: #ffffff;
+  --off-white: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+  --transition: 0.2s ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--off-white);
+  color: var(--navy);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+.site-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a1a3e 100%);
+  color: var(--white);
+  padding: 32px 0;
+  border-bottom: 3px solid var(--green);
+}
+.header-inner { display: flex; flex-direction: column; gap: 4px; }
+.logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 700; }
+.logo-icon { font-size: 1.8rem; }
+.logo-sg { color: var(--green-light); font-weight: 600; }
+.header-subtitle { font-size: 0.875rem; color: var(--slate-light); margin-top: 2px; }
+
+/* Content */
+.main-content { padding: 32px 24px; }
+
+.panel {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.section-desc {
+  color: var(--slate);
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--navy-light);
+  margin: 28px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+h3:first-of-type { margin-top: 0; }
+
+/* Caveat Banner */
+.caveat-banner {
+  background: #fffbeb;
+  border: 2px solid var(--amber-light);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  font-size: 0.88rem;
+  color: var(--navy);
+  line-height: 1.7;
+}
+.caveat-banner strong { color: var(--amber); }
+
+/* Reference Table */
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-bottom: 24px;
+}
+
+.ref-table thead {
+  background: var(--gray-100);
+}
+
+.ref-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--slate);
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.ref-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--gray-100);
+  vertical-align: top;
+  color: var(--navy);
+  line-height: 1.5;
+}
+
+.ref-table tr:hover td {
+  background: var(--gray-100);
+}
+
+.ref-table .estimate {
+  color: var(--amber);
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ref-table a {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ref-table a:hover {
+  text-decoration: underline;
+}
+
+/* Tag pills */
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.tag-verified { background: #ecfdf5; color: var(--green); }
+.tag-estimate { background: #fffbeb; color: var(--amber); }
+.tag-projection { background: #ede9fe; color: var(--purple); }
+.tag-historical { background: #f1f5f9; color: var(--slate); }
+
+/* Back link */
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+.back-link:hover { text-decoration: underline; }
+
+/* TOC */
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.toc a {
+  padding: 8px 16px;
+  background: var(--gray-100);
+  border: 2px solid var(--gray-200);
+  border-radius: 24px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--slate);
+  text-decoration: none;
+  transition: all var(--transition);
+}
+.toc a:hover { border-color: var(--green); color: var(--green); }
+
+/* Footer */
+.site-footer {
+  background: var(--navy);
+  color: var(--slate-light);
+  text-align: center;
+  padding: 24px;
+  font-size: 0.8rem;
+  margin-top: 48px;
+}
+.footer-note { font-size: 0.7rem; margin-top: 4px; color: var(--slate); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .panel { padding: 20px; }
+  .ref-table { font-size: 0.78rem; }
+  .ref-table th, .ref-table td { padding: 8px 8px; }
+}
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <span class="logo-icon">&#128218;</span>
+        <span class="logo-text">References &amp; Sources <span class="logo-sg">Nuclear Energy SG</span></span>
+      </div>
+      <p class="header-subtitle">Full source documentation for every fact, indicator, and estimate in the project</p>
+    </div>
+  </header>
+
+  <main class="container main-content">
+
+    <a class="back-link" href="../">&larr; Back to Home</a>
+
+    <div class="panel">
+      <h2>About This Page</h2>
+      <p class="section-desc">This page documents the source and verification status of every factual claim, data point, and estimate used across both the <strong>Energy Scenario Explorer</strong> and <strong>Nuclear Safety Explorer</strong> apps. Data was last verified in March 2026.</p>
+
+      <div class="caveat-banner">
+        <strong>Important Caveats:</strong><br>
+        &bull; <strong>Estimates and projections</strong> (marked with <span class="tag tag-estimate">Estimate</span> or <span class="tag tag-projection">Projection</span>) are based on best available data but carry inherent uncertainty. Reactor specifications for designs not yet built (fusion, some Gen IV) are vendor targets, not demonstrated performance.<br>
+        &bull; <strong>Waste volume figures</strong> for advanced reactors (MSR, HTGR, fusion) are engineering projections &mdash; no commercial fleet has operated long enough to produce definitive data. A 2022 Stanford/UBC study (Krall et al., <em>PNAS</em>) found that some SMR designs may produce more waste per unit energy than conventional reactors.<br>
+        &bull; <strong>Singapore energy data</strong> uses the most recent official statistics (EMA 2024/2025). Figures change annually; the app uses round baselines suitable for scenario modelling, not precise accounting.<br>
+        &bull; <strong>DAC energy requirements</strong> vary widely (250&ndash;500+ MW per MtCO&#8322;/yr) depending on technology, climate, and energy source. The app uses an optimistic-to-moderate range.<br>
+        &bull; <strong>Land footprints</strong> for reactor sites are vendor estimates for the nuclear island only; actual site requirements (security perimeter, cooling infrastructure, exclusion zone) are larger.<br>
+        &bull; <strong>Historical accident details</strong> reflect the established consensus from IAEA, NRC, and UNSCEAR reports. Some details (exact power excursion magnitude at Chernobyl, precise tsunami height at Fukushima) have ranges in the literature; we use the most commonly cited figures.
+      </div>
+
+      <div class="toc">
+        <a href="#sg-baseline">SG Baseline</a>
+        <a href="#sg-landmarks">SG Landmarks</a>
+        <a href="#energy-industries">Industries</a>
+        <a href="#reactor-specs">Reactor Specs</a>
+        <a href="#waste-land">Waste &amp; Land</a>
+        <a href="#radiation">Radiation Physics</a>
+        <a href="#safety-concepts">Safety Concepts</a>
+        <a href="#accidents">Historical Accidents</a>
+        <a href="#advanced-reactors">Advanced Reactors</a>
+        <a href="#fusion">Fusion Safety</a>
+      </div>
+    </div>
+
+    <!-- ===== SG BASELINE ===== -->
+    <div class="panel" id="sg-baseline">
+      <h2>Singapore Baseline Data</h2>
+      <p class="section-desc">Baseline figures used in the Energy Scenario Explorer's demand calculator and carbon module.</p>
+
+      <table class="ref-table">
+        <thead>
+          <tr><th>Indicator</th><th>Value Used</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Peak electricity demand</td>
+            <td>8,200 MW</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>EMA, <em>Electricity Demand &amp; Supply Outlook 2025</em>. Actualised peak ~8,189 MW (July 2025).</td>
+          </tr>
+          <tr>
+            <td>Annual electricity consumption</td>
+            <td>58 TWh</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>EMA, <em>Singapore Energy Statistics</em>, Chapter 2 (2024 data: ~58 TWh consumed, ~59.6 TWh generated).</td>
+          </tr>
+          <tr>
+            <td>Natural gas share of generation</td>
+            <td>~94%</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>EMA, <em>Singapore Energy Statistics</em>, Chapter 2 (2024: ~94%; 1H 2025: 93.1%). NCCS cites ~95% as a round figure.</td>
+          </tr>
+          <tr>
+            <td>Annual CO&#8322; emissions</td>
+            <td>50 Mt</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>NCCS, <em>Singapore Emissions Profile</em>. Approximately 50 Mt is energy-related CO&#8322;. Total GHG is ~75 MtCO&#8322;e (2023). Power sector alone is ~30 Mt. The 50 Mt figure is used as a round baseline for scenario modelling of energy-system-wide displacement.</td>
+          </tr>
+          <tr>
+            <td>Grid emission factor</td>
+            <td>0.40 tCO&#8322;/MWh</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>EMA, <em>Grid Emission Factor</em> (2024: 0.4018 kgCO&#8322;/kWh). Published on data.gov.sg.</td>
+          </tr>
+          <tr>
+            <td>Population</td>
+            <td>6.04 million</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Singapore Department of Statistics / <em>Population in Brief 2025</em>. Total population 6.04M (June 2025).</td>
+          </tr>
+          <tr>
+            <td>Total land area</td>
+            <td>736 km&sup2;</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>SingStat, <em>Land Area</em> (2025: ~736.3 km&sup2;). Area continues to grow due to reclamation.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== SG LANDMARKS ===== -->
+    <div class="panel" id="sg-landmarks">
+      <h2>Singapore Landmarks (Area Comparisons)</h2>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Landmark</th><th>Area Used</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jurong Island</td>
+            <td>3,200 ha</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>JTC Corporation. Commonly cited as ~3,000&ndash;3,200 ha after reclamation (2009). Some sources cite 30 km&sup2; (~3,000 ha).</td>
+          </tr>
+          <tr>
+            <td>Changi East Development (incl. T5)</td>
+            <td>1,080 ha</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Changi Airport Group, <em>Future Developments</em>. 1,080 ha refers to the entire Changi East development area, not Terminal 5 alone.</td>
+          </tr>
+          <tr>
+            <td>Sentosa</td>
+            <td>500 ha</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Sentosa Development Corporation. ~5 km&sup2; / 500 ha including reclaimed areas.</td>
+          </tr>
+          <tr>
+            <td>Gardens by the Bay</td>
+            <td>101 ha</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>NParks / Gardens by the Bay official site. 101 hectares across three waterfront gardens.</td>
+          </tr>
+          <tr>
+            <td>Marina Bay Sands site</td>
+            <td>15.5 ha</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>URA / Marina Bay Sands factsheet. Some sources cite 15.5&ndash;20 ha depending on scope definition.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== ENERGY INDUSTRIES ===== -->
+    <div class="panel" id="energy-industries">
+      <h2>Energy-Intensive Industry Parameters</h2>
+      <p class="section-desc">Power consumption ranges for hypothetical new industries in Singapore. These are order-of-magnitude estimates based on global industry data.</p>
+
+      <table class="ref-table">
+        <thead>
+          <tr><th>Industry</th><th>Range Used</th><th>Status</th><th>Source / Basis</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Data Centres</td>
+            <td>50&ndash;200 MW each</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Uptime Institute; IEA, <em>Data Centres and Data Transmission Networks</em> (2024). Hyperscale data centres range 50&ndash;200+ MW. Singapore DC moratorium lifted 2022 with efficiency requirements.</td>
+          </tr>
+          <tr>
+            <td>Desalination</td>
+            <td>20&ndash;50 MW each</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>PUB Singapore; IDA Desalination Yearbook. Tuas SWRO plant ~30 MW. Range reflects small-to-large SWRO plants at ~3&ndash;4 kWh/m&sup3;.</td>
+          </tr>
+          <tr>
+            <td>Vertical Farming</td>
+            <td>10&ndash;30 MW each</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>SFA Singapore; Agritecture. Large vertical farms consume 10&ndash;40 MW depending on lighting and HVAC. Singapore targets 30% local food production by 2030 ("30 by 30").</td>
+          </tr>
+          <tr>
+            <td>Semiconductor Fabs</td>
+            <td>100&ndash;200 MW each</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>TSMC annual reports; SEMI. Leading-edge fabs (3nm/2nm) draw 100&ndash;200+ MW. Singapore hosts major fabs (GlobalFoundries, Micron, UMC).</td>
+          </tr>
+          <tr>
+            <td>Green Hydrogen (Electrolysis)</td>
+            <td>250&ndash;500 MW each</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>IRENA, <em>Green Hydrogen Cost Reduction</em> (2020). 1 GW electrolyser &#8776; 1 GW electrical input. 250&ndash;500 MW represents mid-scale plants.</td>
+          </tr>
+          <tr>
+            <td>Direct Air Capture</td>
+            <td>250&ndash;500 MW per ~1 MtCO&#8322;/yr</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>IEA, <em>Direct Air Capture</em> (2022); National Academies of Sciences (2019). Published estimates range 250&ndash;500+ MW per MtCO&#8322;/yr depending on technology and heat source. Lower bound is optimistic.</td>
+          </tr>
+          <tr>
+            <td>EV Charging Network</td>
+            <td>2,000&ndash;4,000 MW (national)</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>LTA Singapore; McKinsey, <em>EV Charging Infrastructure</em>. Singapore targets all vehicles to be cleaner-energy by 2040. Peak charging demand depends on fleet size and charging patterns; 2&ndash;4 GW is a plausible upper bound for a fully electrified national fleet.</td>
+          </tr>
+          <tr>
+            <td>Synthetic Fuels (e-fuels/SAF)</td>
+            <td>500&ndash;800 MW each</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>IEA, <em>The Role of E-fuels</em> (2024); Frontier Economics. Fischer-Tropsch synthesis via green hydrogen is energy-intensive. 500&ndash;800 MW per commercial-scale plant is a rough estimate.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Modelling Parameters</h3>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Parameter</th><th>Value</th><th>Status</th><th>Source / Basis</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Capacity factor</td>
+            <td>90%</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>EIA; IAEA PRIS. Global nuclear fleet average capacity factor ~80&ndash;93%. US fleet average ~93% (2023). 90% is a conservative-to-typical value.</td>
+          </tr>
+          <tr>
+            <td>Industry phase-in period</td>
+            <td>5 years</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Modelling assumption for gradual industry ramp-up. Not sourced from a specific study.</td>
+          </tr>
+          <tr>
+            <td>Underground surface fraction</td>
+            <td>30%</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Modelling assumption. Singapore's Underground Master Plan (URA, 2019) envisions significant subsurface use, but no specific reactor siting fraction is published.</td>
+          </tr>
+          <tr>
+            <td>Gas plant footprint</td>
+            <td>12 ha/GW</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Strata, <em>The Footprint of Energy</em> (2017); DOE NREL land-use studies. Direct footprint of CCGT plants varies ~5&ndash;15 ha/GW. 12 ha/GW is a mid-range figure for the plant proper.</td>
+          </tr>
+          <tr>
+            <td>Gas infrastructure multiplier</td>
+            <td>2.5&times;</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Modelling assumption to account for LNG terminal, pipelines, and storage. Singapore's SLNG terminal on Jurong Island occupies ~35 ha. Multiplier is an approximation.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== REACTOR SPECS ===== -->
+    <div class="panel" id="reactor-specs">
+      <h2>Reactor Technology Specifications</h2>
+      <p class="section-desc">Power output, footprint, and waste figures for each reactor type modelled in the app.</p>
+
+      <h3>Fission Small Modular Reactors</h3>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Reactor</th><th>Spec</th><th>Value</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3">NuScale VOYGR</td>
+            <td>Power</td><td>77 MWe/module</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>NuScale Power. 50 MWe design received NRC Design Certification (Jan 2023). Uprated 77 MWe design received NRC Standard Design Approval (May 2025). UAMPS project cancelled Nov 2023 due to cost; certification itself remains valid.</td>
+          </tr>
+          <tr>
+            <td>Footprint</td><td>1.5 ha</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>NuScale vendor documentation. Refers to the nuclear island footprint for a multi-module plant.</td>
+          </tr>
+          <tr>
+            <td>Waste</td><td>20 m&sup3;/GW&middot;yr</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Based on standard LWR spent fuel volume. ~20&ndash;30 tonnes spent fuel/yr per GWe. See waste section for caveats.</td>
+          </tr>
+          <tr>
+            <td rowspan="2">BWRX-300</td>
+            <td>Power</td><td>300 MWe</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>GE Vernova / GE Hitachi Nuclear Energy. Under licensing review in Canada (OPG Darlington), USA, and others.</td>
+          </tr>
+          <tr>
+            <td>Footprint</td><td>4 ha</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>GE Hitachi vendor documentation.</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Rolls-Royce SMR</td>
+            <td>Power</td><td>470 MWe</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Rolls-Royce SMR Ltd. 450&ndash;470 MWe net depending on site conditions. UK GDA in progress. Target: 4-year construction.</td>
+          </tr>
+          <tr>
+            <td>Footprint</td><td>6 ha</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Rolls-Royce SMR vendor documentation (~10 acres).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Molten Salt Reactors</h3>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Reactor</th><th>Spec</th><th>Value</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="2">Seaborg CMSR</td>
+            <td>Power</td><td>100 MWe/module</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Seaborg Technologies (rebranded Saltfoss Energy, Apr 2025). 100 MWe per module; barge can host multiple modules (200/400/600/800 MWe).</td>
+          </tr>
+          <tr>
+            <td>Footprint</td><td>0.5 ha</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Vendor estimate for barge-mounted design. Minimal land footprint since the reactor sits on the barge.</td>
+          </tr>
+          <tr>
+            <td rowspan="2">ThorCon MSR</td>
+            <td>Power</td><td>250 MWe</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>ThorCon International. Note: "IMSR" (Integral Molten Salt Reactor) is a separate design by Terrestrial Energy (195 MWe). ThorCon's design is a distinct thorium molten-salt reactor with shipyard fabrication and 4-year module swap.</td>
+          </tr>
+          <tr>
+            <td>Footprint</td><td>3 ha</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>ThorCon vendor documentation.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>High-Temperature Gas Reactor</h3>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Reactor</th><th>Spec</th><th>Value</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3">HTR-PM</td>
+            <td>Power</td><td>210 MWe</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>China Huaneng Group / INET, Tsinghua University. Two 250 MWt reactor modules driving one 210 MWe steam turbine. Commercial operation at Shidao Bay commenced December 6, 2023. World Nuclear News (Dec 2023).</td>
+          </tr>
+          <tr>
+            <td>Footprint</td><td>5 ha</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Based on Shidao Bay site layout. Approximate nuclear island footprint.</td>
+          </tr>
+          <tr>
+            <td>Waste</td><td>25 m&sup3;/GW&middot;yr</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Higher than LWR due to bulky graphite pebble fuel form. Engineering estimate; no long-term commercial fleet data available.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Fusion Reactors</h3>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Reactor</th><th>Spec</th><th>Value</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="4">CFS ARC</td>
+            <td>Power</td><td>~400 MWe</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>Commonwealth Fusion Systems. Original ARC paper (Sorbom et al., 2015) proposed 270 MWe. 2024 Virginia commercial plant announcement targets ~400 MWe. No fusion power plant has been built yet.</td>
+          </tr>
+          <tr>
+            <td>Footprint</td><td>5 ha</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>Vendor projection. No commercial fusion plant exists for comparison.</td>
+          </tr>
+          <tr>
+            <td>Waste</td><td>5 m&sup3;/GW&middot;yr</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>Theoretical estimate for neutron-activated structural materials. Depends heavily on material choices (RAFM steel, vanadium alloys, SiC). No operational data.</td>
+          </tr>
+          <tr>
+            <td>HTS Magnet</td><td>20 T (2021)</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>CFS press release (Sep 2021); Creely et al., <em>IEEE Transactions on Applied Superconductivity</em> (2022). Demonstrated 20 T field with HTS magnets.</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Tokamak Energy ST</td>
+            <td>Power</td><td>200 MWe</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>Tokamak Energy Ltd. ST-E1 pilot plant targets up to 200 MWe (early 2030s). 2024 design details suggest 85 MWe net from 800 MW fusion power may be more realistic.</td>
+          </tr>
+          <tr>
+            <td>Decay period</td><td>~100 years</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>EUROfusion; Zinkle &amp; Snead, <em>Annual Review of Materials Research</em> (2014). With low-activation materials, activated components decay to clearance levels in 50&ndash;100 years. Depends on material choices.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== WASTE & LAND ===== -->
+    <div class="panel" id="waste-land">
+      <h2>Waste &amp; Land Use Data</h2>
+
+      <div class="caveat-banner">
+        <strong>Waste volume caveat:</strong> Waste figures for advanced reactors are engineering projections based on design studies, not operational data. A 2022 study by Krall, Macfarlane &amp; Ewing (<em>Proceedings of the National Academy of Sciences</em>) found that some SMR designs may produce 5&ndash;35&times; more waste per unit energy than conventional PWRs when all waste streams (including graphite, salts, and other materials) are counted. The figures used in this app represent vitrified high-level waste volume only.
+      </div>
+
+      <table class="ref-table">
+        <thead>
+          <tr><th>Parameter</th><th>Value</th><th>Status</th><th>Source / Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fission LWR HLW volume</td>
+            <td>~20 m&sup3;/GW&middot;yr</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Based on ~20&ndash;30 t spent fuel/yr per GWe and fuel assembly geometry. World Nuclear Association, <em>Radioactive Waste Management</em>. Vitrified HLW from reprocessing is much lower volume. Spent fuel assemblies used directly are ~20&ndash;27 m&sup3;/GW&middot;yr bare volume.</td>
+          </tr>
+          <tr>
+            <td>MSR waste volume</td>
+            <td>~15 m&sup3;/GW&middot;yr</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>Engineering estimate from MSR design studies. Online fuel processing may reduce actinide waste. No commercial MSR fleet data. LeBlanc, <em>Nuclear Engineering and Design</em> (2010).</td>
+          </tr>
+          <tr>
+            <td>HTGR waste volume</td>
+            <td>~25 m&sup3;/GW&middot;yr</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>Higher due to bulky graphite pebble matrix. TRISO particles provide containment during disposal. Based on HTR-PM design parameters. INET/Tsinghua publications.</td>
+          </tr>
+          <tr>
+            <td>Fusion activated materials</td>
+            <td>~5 m&sup3;/GW&middot;yr</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>Theoretical. No operational fusion power plant exists. Based on DEMO reactor design studies. EUROfusion, <em>European Fusion Roadmap</em>.</td>
+          </tr>
+          <tr>
+            <td>Fission HLW hazard duration</td>
+            <td>~100,000+ years</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>IAEA; NRC. Spent fuel contains long-lived isotopes (e.g., Pu-239 half-life 24,110 years; I-129 half-life 15.7 million years). Deep geological disposal is the international consensus solution.</td>
+          </tr>
+          <tr>
+            <td>Fusion waste hazard duration</td>
+            <td>~50&ndash;100 years</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>With low-activation materials (RAFM steels, vanadium alloys). Zinkle &amp; Snead (2014); EUROfusion materials programme. Depends on material choice.</td>
+          </tr>
+          <tr>
+            <td>Dry cask capacity</td>
+            <td>~3 m&sup3; (per cask, HLW equivalent)</td>
+            <td><span class="tag tag-estimate">Estimate</span></td>
+            <td>Simplified modelling metric. Actual dry casks are ~6 m tall &times; 2.5 m dia (outer dimensions much larger). The 3 m&sup3; figure represents approximate vitrified HLW canister volume, not the full storage overpack.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== RADIATION PHYSICS ===== -->
+    <div class="panel" id="radiation">
+      <h2>Radiation Physics</h2>
+      <p class="section-desc">Physical properties of radiation types as presented in the Nuclear Safety Explorer.</p>
+
+      <table class="ref-table">
+        <thead>
+          <tr><th>Claim</th><th>Value</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alpha particle mass</td>
+            <td>~4 amu</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Standard nuclear physics. Helium-4 nucleus: 2 protons + 2 neutrons.</td>
+          </tr>
+          <tr>
+            <td>Alpha speed</td>
+            <td>~5% speed of light</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Typical alpha energies of 4&ndash;9 MeV give velocities ~5% c. Krane, <em>Introductory Nuclear Physics</em>.</td>
+          </tr>
+          <tr>
+            <td>Alpha range in air</td>
+            <td>2&ndash;10 cm</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>IAEA Safety Glossary; Shultis &amp; Faw, <em>Radiation Shielding</em>.</td>
+          </tr>
+          <tr>
+            <td>Alpha ionising power</td>
+            <td>~20&times; gamma</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>ICRP weighting factor for alpha: 20. Reflects high LET (Linear Energy Transfer).</td>
+          </tr>
+          <tr>
+            <td>Beta speed</td>
+            <td>Up to ~99% c</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>High-energy beta particles are relativistic. Standard nuclear physics textbooks.</td>
+          </tr>
+          <tr>
+            <td>Beta range in air</td>
+            <td>0.1&ndash;5 m</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Depends on energy. Shultis &amp; Faw, <em>Radiation Shielding</em>.</td>
+          </tr>
+          <tr>
+            <td>Gamma range in air</td>
+            <td>100+ metres</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Exponential attenuation; high-energy gammas can traverse hundreds of metres. NIST XCOM database.</td>
+          </tr>
+          <tr>
+            <td>Free neutron half-life</td>
+            <td>~10 minutes</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>PDG (Particle Data Group): 611 &plusmn; 1 seconds (10.2 min). Mean lifetime ~878 s (~14.6 min). "~10 min" refers to the half-life specifically.</td>
+          </tr>
+          <tr>
+            <td>Pair production threshold</td>
+            <td>&gt;1.022 MeV</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>2 &times; electron rest mass energy (2 &times; 0.511 MeV). Standard quantum electrodynamics.</td>
+          </tr>
+          <tr>
+            <td>Boron-10 thermal neutron cross-section</td>
+            <td>3,840 barns</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>ENDF/B-VIII nuclear data library. B-10 (n,&alpha;) cross-section at 0.025 eV: 3,840 &plusmn; 11 barns.</td>
+          </tr>
+          <tr>
+            <td>Speed of light</td>
+            <td>3 &times; 10&sup8; m/s</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>NIST. Exact value: 299,792,458 m/s.</td>
+          </tr>
+          <tr>
+            <td>Shielding: paper stops alpha</td>
+            <td>~0.1 mm</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Standard radiation protection textbooks. Alpha range in solid material is ~tens of micrometres.</td>
+          </tr>
+          <tr>
+            <td>Shielding: 3 mm aluminium stops beta</td>
+            <td>3 mm</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Sufficient for most beta energies encountered in reactor contexts. IAEA.</td>
+          </tr>
+          <tr>
+            <td>Shielding: 5 cm lead attenuates gamma</td>
+            <td>5 cm</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>~5 HVLs for Co-60 gamma (HVL ~1.2 cm in lead). Significant attenuation, not complete absorption. NIST XCOM.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== SAFETY CONCEPTS ===== -->
+    <div class="panel" id="safety-concepts">
+      <h2>Safety Concepts &amp; Mechanisms</h2>
+
+      <table class="ref-table">
+        <thead>
+          <tr><th>Concept</th><th>Claim</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Negative temperature coefficient</td>
+            <td>Doppler broadening response: microseconds</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Duderstadt &amp; Hamilton, <em>Nuclear Reactor Analysis</em>. Doppler effect is prompt (neutron thermalisation timescale).</td>
+          </tr>
+          <tr>
+            <td>Xenon-135</td>
+            <td>Strongest known neutron absorber</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Xe-135 thermal neutron absorption cross-section: ~2.65 &times; 10&sup6; barns. ENDF nuclear data library.</td>
+          </tr>
+          <tr>
+            <td>Xenon pit duration</td>
+            <td>24&ndash;48 hours</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>I-135 half-life: 6.6 hours; Xe-135 half-life: 9.2 hours. Xenon peak occurs ~11 hours after shutdown; burns off over ~24&ndash;48 hours. Lamarsh, <em>Introduction to Nuclear Engineering</em>.</td>
+          </tr>
+          <tr>
+            <td>UO&#8322; melting point</td>
+            <td>~2,865 &deg;C</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>IAEA-TECDOC-1496. UO&#8322; melting point: 2,865 &plusmn; 15 &deg;C for stoichiometric composition.</td>
+          </tr>
+          <tr>
+            <td>UO&#8322; fission product retention</td>
+            <td>95&ndash;98%</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>IAEA, <em>Fuel Performance Under Normal Conditions</em>. Volatile fission gases (Xe, Kr) and small amounts of I and Cs migrate; remainder retained in ceramic matrix.</td>
+          </tr>
+          <tr>
+            <td>TRISO temperature tolerance</td>
+            <td>1,600 &deg;C+</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>US DOE, <em>TRISO Particles: The Most Robust Nuclear Fuel on Earth</em>. SiC coating integrity demonstrated to 1,600 &deg;C; advanced coatings to 1,800 &deg;C.</td>
+          </tr>
+          <tr>
+            <td>Graphite sublimation point</td>
+            <td>~3,600 &deg;C</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>CRC Handbook of Chemistry and Physics. Graphite sublimes at ~3,600&ndash;3,700 &deg;C at atmospheric pressure.</td>
+          </tr>
+          <tr>
+            <td>PWR operating pressure</td>
+            <td>~155 bar (2,250 psi)</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Standard PWR parameters. Todreas &amp; Kazimi, <em>Nuclear Systems</em>. Westinghouse AP1000: 155.1 bar.</td>
+          </tr>
+          <tr>
+            <td>PWR operating temperature</td>
+            <td>~315 &deg;C</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Typical PWR hot leg temperature. Todreas &amp; Kazimi, <em>Nuclear Systems</em>.</td>
+          </tr>
+          <tr>
+            <td>PWR share of global fleet</td>
+            <td>~70%</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>IAEA PRIS database. As of 2025, ~300 of ~440 operating reactors are PWRs (~68&ndash;70%).</td>
+          </tr>
+          <tr>
+            <td>Sodium boiling point</td>
+            <td>883 &deg;C</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>CRC Handbook. Sodium boils at 883 &deg;C at 1 atm.</td>
+          </tr>
+          <tr>
+            <td>SFR operating temperature</td>
+            <td>~500 &deg;C</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Typical pool-type SFR. Waltar, Todd &amp; Tsvetkov, <em>Fast Spectrum Reactors</em>.</td>
+          </tr>
+          <tr>
+            <td>MSR salt boiling point</td>
+            <td>~1,400 &deg;C</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>FLiBe (2LiF-BeF&#8322;) boils at ~1,430 &deg;C. Bene&scaron; &amp; Konings, <em>Comprehensive Nuclear Materials</em> (2012).</td>
+          </tr>
+          <tr>
+            <td>MSR operating temperature</td>
+            <td>~650&ndash;700 &deg;C</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>MSRE operated at ~650 &deg;C. ORNL-4449 (1969).</td>
+          </tr>
+          <tr>
+            <td>Decay heat: ~7% initially, ~1% after one day</td>
+            <td>7% / 1%</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Way-Wigner approximation; ANS-5.1 decay heat standard. ~6.5% at shutdown, ~1.5% after 1 hour, ~0.5&ndash;1% after 1 day.</td>
+          </tr>
+          <tr>
+            <td>Sodium thermal conductivity vs water</td>
+            <td>~100&times;</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Sodium: ~80 W/(m&middot;K); water: ~0.6 W/(m&middot;K). Ratio ~130&times;. "~100&times;" is a conservative round figure.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== HISTORICAL ACCIDENTS ===== -->
+    <div class="panel" id="accidents">
+      <h2>Historical Accidents</h2>
+
+      <h3>Three Mile Island (March 28, 1979)</h3>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Claim</th><th>Value</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>INES level</td>
+            <td>5</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>IAEA, <em>INES: The International Nuclear and Radiological Event Scale</em>.</td>
+          </tr>
+          <tr>
+            <td>Core melt fraction</td>
+            <td>~50%</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>NRC, <em>TMI-2 Lessons Learned Task Force</em>. Camera inspections (1982) and defueling (1985&ndash;1990) confirmed ~45&ndash;52% core damage.</td>
+          </tr>
+          <tr>
+            <td>Public radiation exposure</td>
+            <td>Less than a chest X-ray</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>NRC Backgrounder; Kemeny Commission Report (1979). Average dose to ~2 million people within 50 miles: ~1 millirem above background. A chest X-ray is ~3&ndash;10 millirem.</td>
+          </tr>
+          <tr>
+            <td>Fatalities / injuries</td>
+            <td>0 / 0</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>NRC; Kemeny Commission. No deaths or injuries attributed to the accident. Extensive epidemiological studies found no increase in cancer rates.</td>
+          </tr>
+          <tr>
+            <td>Stuck-open PORV</td>
+            <td>Key initiating failure</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>NRC, <em>TMI-2 Technical Assessment</em>. The PORV stuck open after actuation, creating a small-break LOCA.</td>
+          </tr>
+          <tr>
+            <td>Creation of INPO</td>
+            <td>Post-TMI reform</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>INPO founded December 1979 in response to TMI. <em>INPO: Our Story</em>.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Chernobyl (April 26, 1986)</h3>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Claim</th><th>Value</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>INES level</td>
+            <td>7</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>IAEA INES scale.</td>
+          </tr>
+          <tr>
+            <td>Power surge magnitude</td>
+            <td>~30,000 MW (~100&times; rated)</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>INSAG-7 (IAEA, 1992); OECD-NEA, <em>Chernobyl: Assessment of Radiological and Health Impacts</em>. Estimated peak: ~30,000 MWt in ~4 seconds.</td>
+          </tr>
+          <tr>
+            <td>Reactor lid weight</td>
+            <td>~1,000 tonnes</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>The Upper Biological Shield ("Elena"): ~1,000 tonnes. INSAG-7. Some sources cite up to 2,000 t for the full upper assembly.</td>
+          </tr>
+          <tr>
+            <td>Graphite fire duration</td>
+            <td>~10 days</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>World Nuclear Association; UNSCEAR (2008). Fire/incandescence from April 26 to approximately May 6&ndash;10.</td>
+          </tr>
+          <tr>
+            <td>Minimum control rod requirement (ORM)</td>
+            <td>30 rods</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>INSAG-7; RBMK operating regulations. ORM (Operative Reactivity Margin) minimum was 30 rods. Only 6&ndash;8 effective rods remained during the test.</td>
+          </tr>
+          <tr>
+            <td>Positive void coefficient</td>
+            <td>RBMK design flaw</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>INSAG-7 (IAEA, 1992). The RBMK had a positive void coefficient at low power &mdash; a critical design deficiency not present in Western LWR designs.</td>
+          </tr>
+          <tr>
+            <td>Graphite-tipped control rods (AZ-5 flaw)</td>
+            <td>Caused reactivity spike on insertion</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>INSAG-7. The graphite displacer tips caused a momentary reactivity increase in the lower core before the boron absorber section reached the fuel zone.</td>
+          </tr>
+          <tr>
+            <td>Creation of WANO</td>
+            <td>Post-Chernobyl reform</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>WANO founded May 1989. <em>wano.info</em>.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Fukushima Daiichi (March 11, 2011)</h3>
+      <table class="ref-table">
+        <thead>
+          <tr><th>Claim</th><th>Value</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>INES level</td>
+            <td>7</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>IAEA INES scale. Rated Level 7 on April 12, 2011.</td>
+          </tr>
+          <tr>
+            <td>Earthquake magnitude</td>
+            <td>9.0</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>USGS; JMA. Variously reported as 9.0&ndash;9.1 Mw. 9.0 is the most commonly cited figure.</td>
+          </tr>
+          <tr>
+            <td>Tsunami height at site</td>
+            <td>~14 metres</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>TEPCO; IAEA Mission Report (2011). Approximately 14&ndash;15.5 m at the Daiichi site.</td>
+          </tr>
+          <tr>
+            <td>Design basis tsunami</td>
+            <td>5.7 m</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>TEPCO, <em>Fukushima Nuclear Accidents Investigation Report</em> (2012). Revised from original 3.1 m design basis in 2002.</td>
+          </tr>
+          <tr>
+            <td>Core meltdowns: 3 units</td>
+            <td>Units 1, 2, 3</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>TEPCO; IAEA. All three operating reactors suffered fuel melting.</td>
+          </tr>
+          <tr>
+            <td>Unit 4 hydrogen explosion source</td>
+            <td>Shared ductwork from Unit 3</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>TEPCO investigation report. Unit 4 was defueled; hydrogen migrated via shared standby gas treatment system ductwork.</td>
+          </tr>
+          <tr>
+            <td>Diesel generators in basements</td>
+            <td>Destroyed by flooding</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>IAEA Mission Report; NAIIC (National Diet of Japan) investigation report (2012).</td>
+          </tr>
+          <tr>
+            <td>Onagawa plant: safely shut down</td>
+            <td>Closer to epicentre, no damage</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Tohoku Electric Power; IAEA. Onagawa was ~75 km from the epicentre vs ~180 km for Daiichi. Higher seawall (~14.8 m) and elevated diesel generators protected the plant. Unit 2 restarted October 2024.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== ADVANCED REACTORS ===== -->
+    <div class="panel" id="advanced-reactors">
+      <h2>Advanced Reactor Experimental Demonstrations</h2>
+
+      <table class="ref-table">
+        <thead>
+          <tr><th>Claim</th><th>Details</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MSRE freeze plug demonstration</td>
+            <td>Oak Ridge National Laboratory, 1965&ndash;1969</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>ORNL-4449; Robertson, <em>MSRE Design and Operations Report</em> (1965). Freeze valves were an integral part of the MSRE design and were demonstrated during operation.</td>
+          </tr>
+          <tr>
+            <td>EBR-II passive safety tests</td>
+            <td>April 3, 1986 at Argonne National Laboratory</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Planchon, Sackett &amp; Golden, <em>Nuclear Engineering and Design</em> 101 (1987) pp. 75&ndash;90. Both loss-of-flow-without-SCRAM and loss-of-heat-sink-without-SCRAM tests resulted in safe passive shutdown.</td>
+          </tr>
+          <tr>
+            <td>HTR-10 walkaway test</td>
+            <td>China, September 2004</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Wu et al., <em>Nuclear Engineering and Design</em> 218 (2002). Helium circulators shut off; temperature rose slowly, peaked below TRISO limits, declined passively. Zero fission product release.</td>
+          </tr>
+          <tr>
+            <td>AVR pebble-bed reactor</td>
+            <td>Germany, 1966&ndash;1988</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Ziermann, <em>Nuclear Engineering and Design</em> 121 (1990). Reached criticality 1966, connected to grid 1967, operated until 1988.</td>
+          </tr>
+          <tr>
+            <td>HTR-PM commercial operation</td>
+            <td>Shidao Bay, December 2023</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>World Nuclear News, "Chinese HTR-PM demo begins commercial operation" (December 6, 2023). China Huaneng Group / CNNC.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== FUSION ===== -->
+    <div class="panel" id="fusion">
+      <h2>Fusion Safety Claims</h2>
+
+      <table class="ref-table">
+        <thead>
+          <tr><th>Claim</th><th>Value</th><th>Status</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>D-T fusion temperature</td>
+            <td>~150 million &deg;C</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Standard plasma physics. ~10 keV ion temperature &#8776; ~100&ndash;150 million &deg;C. Wesson, <em>Tokamaks</em>.</td>
+          </tr>
+          <tr>
+            <td>Fuel in plasma</td>
+            <td>&lt; 1 gram</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>ITER Organization; Freidberg, <em>Plasma Physics and Fusion Energy</em>. Typical tokamak plasma density: ~10&sup2;&sup0; particles/m&sup3; in ~1,000 m&sup3; volume = milligrams to grams.</td>
+          </tr>
+          <tr>
+            <td>D-T fusion neutron energy</td>
+            <td>14.1 MeV</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Standard D-T reaction kinematics. D + T &rarr; &sup4;He (3.5 MeV) + n (14.1 MeV).</td>
+          </tr>
+          <tr>
+            <td>Tritium half-life</td>
+            <td>12.3 years</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>NNDC (Brookhaven National Laboratory): 12.32 &plusmn; 0.02 years.</td>
+          </tr>
+          <tr>
+            <td>Tritium: low-energy beta emitter</td>
+            <td>Cannot penetrate skin</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Tritium beta max energy: 18.6 keV. Range in air: ~6 mm. Cannot penetrate intact skin. NRC Health Physics guidance.</td>
+          </tr>
+          <tr>
+            <td>Tritium working inventory</td>
+            <td>~1&ndash;2 kg</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>ITER design: ~4 kg total tritium inventory. Commercial plants may target 1&ndash;2 kg working inventory with efficient breeding. Abdou et al., <em>Nuclear Fusion</em> (2021).</td>
+          </tr>
+          <tr>
+            <td>Plasma cools in milliseconds if confinement lost</td>
+            <td>Milliseconds</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Tokamak disruption timescales: thermal quench 1&ndash;5 ms; current quench 5&ndash;50 ms. Hender et al., <em>Nuclear Fusion</em> (2007).</td>
+          </tr>
+          <tr>
+            <td>Meltdown: physically impossible in fusion</td>
+            <td>Plasma density &lt;&lt; air</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>Tokamak plasma: ~10&sup2;&sup0; particles/m&sup3;. Air: ~10&sup2;&sup5; molecules/m&sup3;. Ratio: ~10&sup5;&times; less dense. No conceivable meltdown mechanism. Freidberg, <em>Plasma Physics and Fusion Energy</em>.</td>
+          </tr>
+          <tr>
+            <td>Fission core: 80&ndash;100 tonnes uranium</td>
+            <td>Typical PWR</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>A 1 GWe PWR core contains ~80&ndash;100 tonnes of UO&#8322; fuel. Todreas &amp; Kazimi, <em>Nuclear Systems</em>.</td>
+          </tr>
+          <tr>
+            <td>Pu-239 half-life</td>
+            <td>24,100 years</td>
+            <td><span class="tag tag-verified">Verified</span></td>
+            <td>NNDC: 24,110 &plusmn; 30 years. "24,100" is a standard rounded figure.</td>
+          </tr>
+          <tr>
+            <td>Low-activation materials (RAFM, V alloys, SiC)</td>
+            <td>Reduce activation to 50&ndash;100 yr decay</td>
+            <td><span class="tag tag-projection">Projection</span></td>
+            <td>Zinkle &amp; Snead, <em>Annual Review of Materials Research</em> 44 (2014) pp. 241&ndash;267. RAFM steels (e.g., EUROFER97) designed for low residual activation. Demonstrated in laboratory; not yet tested under full fusion neutron flux.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== BIBLIOGRAPHY ===== -->
+    <div class="panel">
+      <h2>Key Sources (Bibliography)</h2>
+      <p class="section-desc">Institutional and peer-reviewed sources referenced throughout. Ordered by category.</p>
+
+      <h3>Singapore Government &amp; Agencies</h3>
+      <ul style="font-size: 0.88rem; color: var(--slate); line-height: 2; padding-left: 20px;">
+        <li>Energy Market Authority (EMA), <em>Singapore Energy Statistics</em> (annual)</li>
+        <li>EMA, <em>Electricity Demand and Supply Outlook 2025</em></li>
+        <li>EMA, <em>Grid Emission Factor</em> (data.gov.sg)</li>
+        <li>National Climate Change Secretariat (NCCS), <em>Singapore Emissions Profile</em></li>
+        <li>Department of Statistics Singapore (SingStat), <em>Population in Brief 2025</em></li>
+        <li>Urban Redevelopment Authority (URA), <em>Underground Master Plan</em> (2019)</li>
+        <li>Land Transport Authority (LTA), <em>Singapore Green Plan &mdash; Transport Sector</em></li>
+      </ul>
+
+      <h3>International Nuclear Organisations</h3>
+      <ul style="font-size: 0.88rem; color: var(--slate); line-height: 2; padding-left: 20px;">
+        <li>IAEA, <em>INSAG-7: The Chernobyl Accident &mdash; Updating of INSAG-1</em> (1992)</li>
+        <li>IAEA, <em>INES: The International Nuclear and Radiological Event Scale</em></li>
+        <li>IAEA, <em>Power Reactor Information System</em> (PRIS) database</li>
+        <li>NRC, <em>TMI-2 Lessons Learned Task Force Report</em> (NUREG-0585)</li>
+        <li>NRC, <em>Backgrounder on the Three Mile Island Accident</em></li>
+        <li>UNSCEAR, <em>Sources and Effects of Ionizing Radiation</em> (2008)</li>
+        <li>OECD-NEA, <em>Chernobyl: Assessment of Radiological and Health Impacts</em> (2002)</li>
+        <li>World Nuclear Association, various information papers (world-nuclear.org)</li>
+      </ul>
+
+      <h3>Textbooks &amp; Review Articles</h3>
+      <ul style="font-size: 0.88rem; color: var(--slate); line-height: 2; padding-left: 20px;">
+        <li>Duderstadt &amp; Hamilton, <em>Nuclear Reactor Analysis</em> (Wiley, 1976)</li>
+        <li>Todreas &amp; Kazimi, <em>Nuclear Systems</em> (CRC Press, 2nd ed.)</li>
+        <li>Lamarsh &amp; Baratta, <em>Introduction to Nuclear Engineering</em> (Pearson, 4th ed.)</li>
+        <li>Krane, <em>Introductory Nuclear Physics</em> (Wiley, 1988)</li>
+        <li>Shultis &amp; Faw, <em>Radiation Shielding</em> (ANS, 2000)</li>
+        <li>Freidberg, <em>Plasma Physics and Fusion Energy</em> (Cambridge, 2007)</li>
+        <li>Wesson, <em>Tokamaks</em> (Oxford, 4th ed., 2011)</li>
+        <li>Waltar, Todd &amp; Tsvetkov, <em>Fast Spectrum Reactors</em> (Springer, 2012)</li>
+        <li>Zinkle &amp; Snead, "Designing radiation resistance in materials for fusion energy," <em>Ann. Rev. Mater. Res.</em> 44 (2014)</li>
+        <li>LeBlanc, "Molten salt reactors: A new beginning for an old idea," <em>Nuclear Eng. and Design</em> 240 (2010)</li>
+        <li>Krall, Macfarlane &amp; Ewing, "Nuclear waste from small modular reactors," <em>PNAS</em> 119 (2022)</li>
+      </ul>
+
+      <h3>Vendor &amp; Industry Sources</h3>
+      <ul style="font-size: 0.88rem; color: var(--slate); line-height: 2; padding-left: 20px;">
+        <li>NuScale Power &mdash; NRC Design Certification (Jan 2023, 50 MWe); Standard Design Approval (May 2025, 77 MWe)</li>
+        <li>GE Vernova / GE Hitachi Nuclear Energy &mdash; BWRX-300</li>
+        <li>Rolls-Royce SMR Ltd. &mdash; UK Generic Design Assessment</li>
+        <li>Seaborg Technologies (Saltfoss Energy) &mdash; CMSR barge design</li>
+        <li>ThorCon International &mdash; Thorium MSR</li>
+        <li>China Huaneng Group / INET, Tsinghua University &mdash; HTR-PM</li>
+        <li>Commonwealth Fusion Systems &mdash; ARC / SPARC tokamak</li>
+        <li>Tokamak Energy Ltd. &mdash; ST-E1 spherical tokamak</li>
+      </ul>
+
+      <h3>Data Libraries</h3>
+      <ul style="font-size: 0.88rem; color: var(--slate); line-height: 2; padding-left: 20px;">
+        <li>ENDF/B-VIII &mdash; Evaluated Nuclear Data File (Brookhaven National Laboratory)</li>
+        <li>NNDC &mdash; National Nuclear Data Center (Brookhaven)</li>
+        <li>NIST XCOM &mdash; Photon Cross Sections Database</li>
+        <li>CRC Handbook of Chemistry and Physics (CRC Press, annual)</li>
+        <li>PDG &mdash; Particle Data Group, <em>Review of Particle Physics</em></li>
+      </ul>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>References &amp; Sources &mdash; Nuclear Energy in Singapore</p>
+      <p class="footer-note">Last verified: March 2026. For educational purposes only.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
