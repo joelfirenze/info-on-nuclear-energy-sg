@@ -31,7 +31,7 @@ Modular architecture with IIFE pattern and central reactive state:
 - **`js/app.js`** — Controller. Holds the global `state` object, tab navigation, and `onStateChange()` which cascades updates to all modules.
 - **`js/data.js`** — All constants: SG baseline data, INDUSTRIES array (8 industries), REACTOR_CATEGORIES, REACTORS array (8 reactor types), LANDMARKS, COLOR palette.
 - **`js/calculator.js`** — Section 1: energy demand modeling with growth rate/projection sliders and industry cards.
-- **`js/reactors.js`** — Section 2: reactor selection with category groups, share sliders (percentage + MW), demand coverage indicator, and dynamic demand link referencing Section 1 output.
+- **`js/reactors.js`** — Section 2: reactor selection with category groups and per-type count steppers. Shows MW capacity per selection and demand coverage vs Section 1 output.
 - **`js/land.js`** — Section 3: land footprint comparison with scaled square visualization and landmark comparisons.
 - **`js/waste.js`** — Section 4: waste volume visualization (3D cube, decay timeline chart).
 - **`js/carbon.js`** — Section 5: CO2 displacement and DAC integration calculations.

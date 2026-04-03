@@ -18,24 +18,27 @@ const Reactors = (() => {
             ${cat.name}
           </span>
           <div class="reactor-cards">
-            ${reactors.map(r => `
-              <div class="reactor-card ${state.selectedReactors[r.id] ? 'selected' : ''}"
+            ${reactors.map(r => {
+              const count = state.selectedReactors[r.id] || 0;
+              return `
+              <div class="reactor-card ${count > 0 ? 'selected' : ''}"
                    data-reactor="${r.id}">
                 <div class="reactor-card-header">
                   <div>
                     <div class="reactor-card-name">${r.name}</div>
-                    <div class="reactor-card-power">${r.mwe} MWe</div>
+                    <div class="reactor-card-power">${r.mwe} MWe per unit</div>
                   </div>
                   <button class="reactor-info-btn" data-info-toggle="${r.id}" title="Technology profile">ℹ</button>
                 </div>
                 <div class="reactor-card-desc">${r.description}</div>
                 <span class="reactor-card-type type-${r.type}">${r.type}</span>
-                <div class="reactor-share-row">
-                  <input type="range" min="0" max="100" step="5"
-                    value="${state.selectedReactors[r.id] || 0}"
-                    data-reactor-share="${r.id}">
-                  <span class="share-value" id="share-${r.id}">${state.selectedReactors[r.id] || 0}%</span>
-                  <span class="share-mw" id="share-mw-${r.id}"></span>
+                <div class="reactor-count-row">
+                  <div class="reactor-stepper">
+                    <button class="stepper-btn" data-action="dec" data-reactor-step="${r.id}">−</button>
+                    <span class="stepper-count" id="count-reactor-${r.id}">${count}</span>
+                    <button class="stepper-btn" data-action="inc" data-reactor-step="${r.id}">+</button>
+                  </div>
+                  <span class="reactor-count-mw" id="mw-reactor-${r.id}">${count > 0 ? formatNum(count * r.mwe) + ' MW' : ''}</span>
                 </div>
                 ${r.profile ? `
                 <div class="reactor-profile" id="profile-${r.id}">
@@ -61,7 +64,7 @@ const Reactors = (() => {
                 </div>
                 ` : ''}
               </div>
-            `).join('')}
+            `}).join('')}
           </div>
         </div>
       `;
@@ -80,48 +83,33 @@ const Reactors = (() => {
       }
     });
 
-    // Bind click to toggle selection
+    // Bind stepper buttons
     container.addEventListener('click', (e) => {
-      const card = e.target.closest('.reactor-card');
-      if (!card || e.target.closest('.reactor-share-row') || e.target.closest('[data-info-toggle]')) return;
-      const id = card.dataset.reactor;
-      if (state.selectedReactors[id]) {
-        delete state.selectedReactors[id];
-        card.classList.remove('selected');
+      const btn = e.target.closest('[data-reactor-step]');
+      if (!btn) return;
+      e.stopPropagation();
+      const id = btn.dataset.reactorStep;
+      const r = REACTORS.find(x => x.id === id);
+      if (!r) return;
+      const action = btn.dataset.action;
+      let count = state.selectedReactors[id] || 0;
+      if (action === 'inc') count++;
+      if (action === 'dec' && count > 0) count--;
+
+      if (count > 0) {
+        state.selectedReactors[id] = count;
       } else {
-        state.selectedReactors[id] = 25; // default share
-        card.classList.add('selected');
-        const slider = card.querySelector(`[data-reactor-share="${id}"]`);
-        if (slider) slider.value = 25;
-        const label = document.getElementById(`share-${id}`);
-        if (label) label.textContent = '25%';
+        delete state.selectedReactors[id];
       }
-      normalizeShares(state);
-      if (typeof onStateChange === 'function') onStateChange();
-    });
 
-    // Bind share sliders
-    container.addEventListener('input', (e) => {
-      const slider = e.target.closest('[data-reactor-share]');
-      if (!slider) return;
-      const id = slider.dataset.reactorShare;
-      state.selectedReactors[id] = parseInt(slider.value);
-      document.getElementById(`share-${id}`).textContent = slider.value + '%';
-      if (typeof onStateChange === 'function') onStateChange();
-    });
-  }
+      // Update UI
+      const card = btn.closest('.reactor-card');
+      card.classList.toggle('selected', count > 0);
+      document.getElementById(`count-reactor-${id}`).textContent = count;
+      const mwLabel = document.getElementById(`mw-reactor-${id}`);
+      mwLabel.textContent = count > 0 ? formatNum(count * r.mwe) + ' MW' : '';
 
-  function normalizeShares(state) {
-    const ids = Object.keys(state.selectedReactors);
-    if (ids.length === 0) return;
-    const equalShare = Math.round(100 / ids.length);
-    ids.forEach((id, i) => {
-      const share = i === ids.length - 1 ? 100 - equalShare * (ids.length - 1) : equalShare;
-      state.selectedReactors[id] = share;
-      const slider = document.querySelector(`[data-reactor-share="${id}"]`);
-      if (slider) slider.value = share;
-      const label = document.getElementById(`share-${id}`);
-      if (label) label.textContent = share + '%';
+      if (typeof onStateChange === 'function') onStateChange();
     });
   }
 
@@ -130,14 +118,11 @@ const Reactors = (() => {
     const newCapacity = Math.max(0, totalDemand - SG_BASELINE.peakDemandMW);
 
     const ids = Object.keys(state.selectedReactors);
-    const totalShareRaw = ids.reduce((s, id) => s + (state.selectedReactors[id] || 0), 0);
-    const totalShare = totalShareRaw || 1;
 
     const reactorResults = [];
     let totalReactors = 0;
     let totalFootprintHa = 0;
     let totalWasteM3 = 0;
-    let weightedDecayYears = 0;
     let fissionMW = 0;
     let fusionMW = 0;
     let fissionWasteM3 = 0;
@@ -146,20 +131,17 @@ const Reactors = (() => {
     ids.forEach(id => {
       const r = REACTORS.find(x => x.id === id);
       if (!r) return;
-      const share = (state.selectedReactors[id] || 0) / totalShare;
-      const mwNeeded = newCapacity * share;
-      const count = Math.ceil(mwNeeded / r.mwe) || 0;
+      const count = state.selectedReactors[id] || 0;
       const actualMW = count * r.mwe;
       const gw = actualMW / 1000;
       const wasteM3 = r.wasteM3PerGWYear * gw;
       const footprint = count * r.footprintHa;
 
-      reactorResults.push({ ...r, count, actualMW, wasteM3, footprint, share: state.selectedReactors[id] });
+      reactorResults.push({ ...r, count, actualMW, wasteM3, footprint });
 
       totalReactors += count;
       totalFootprintHa += footprint;
       totalWasteM3 += wasteM3;
-      weightedDecayYears += r.decayYears * share;
 
       if (r.type === 'fission') {
         fissionMW += actualMW;
@@ -190,21 +172,6 @@ const Reactors = (() => {
     }
   }
 
-  function updateShareMW(state) {
-    const totalDemand = (state.computed && state.computed.totalDemandMW) || SG_BASELINE.peakDemandMW;
-    const newCapacity = Math.max(0, totalDemand - SG_BASELINE.peakDemandMW);
-    const ids = Object.keys(state.selectedReactors);
-    const totalShareRaw = ids.reduce((s, id) => s + (state.selectedReactors[id] || 0), 0);
-    const totalShare = totalShareRaw || 1;
-
-    ids.forEach(id => {
-      const share = (state.selectedReactors[id] || 0) / totalShare;
-      const mw = Math.round(newCapacity * share);
-      const el = document.getElementById(`share-mw-${id}`);
-      if (el) el.textContent = `≈ ${formatNum(mw)} MW`;
-    });
-  }
-
   function updateSummary(state) {
     const c = state.computed;
     const el = document.getElementById('reactor-summary');
@@ -212,7 +179,7 @@ const Reactors = (() => {
 
     if (ids.length === 0) {
       el.innerHTML = `<div class="summary-item"><span class="summary-value amber">—</span>
-        <span class="summary-label">Select reactors above</span></div>`;
+        <span class="summary-label">Select reactors above to meet the new demand</span></div>`;
       return;
     }
 
@@ -232,7 +199,7 @@ const Reactors = (() => {
       </div>
       <div class="summary-item">
         <span class="summary-value amber">${formatNum(c.newCapacityMW)}</span>
-        <span class="summary-label">Demand to Meet (MW)</span>
+        <span class="summary-label">New Demand (MW)</span>
       </div>
       <div class="summary-item">
         <span class="summary-value ${coverageColor}">${coveragePercent}%</span>
@@ -273,7 +240,6 @@ const Reactors = (() => {
     calculate(state);
     updateDemandLink(state);
     updateSummary(state);
-    updateShareMW(state);
     updatePictograph(state);
   }
 

@@ -541,47 +541,23 @@ body {
 }
 .profile-safety-link:hover { color: var(--blue-light); text-decoration: underline; }
 
-/* Reactor share slider */
-.reactor-share-row {
+/* Reactor count stepper */
+.reactor-count-row {
   margin-top: 10px;
-  display: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.reactor-card.selected .reactor-share-row {
+.reactor-stepper {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.reactor-share-row input[type="range"] {
-  flex: 1;
-  -webkit-appearance: none;
-  appearance: none;
-  height: 4px;
-  background: var(--gray-300);
-  border-radius: 2px;
-}
-
-.reactor-share-row input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  background: var(--blue);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.share-value {
+.reactor-count-mw {
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--blue);
-  min-width: 40px;
-  text-align: right;
-}
-
-.share-mw {
-  font-size: 0.75rem;
-  font-weight: 600;
   color: var(--amber);
   white-space: nowrap;
 }
