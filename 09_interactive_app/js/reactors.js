@@ -35,6 +35,7 @@ const Reactors = (() => {
                     value="${state.selectedReactors[r.id] || 0}"
                     data-reactor-share="${r.id}">
                   <span class="share-value" id="share-${r.id}">${state.selectedReactors[r.id] || 0}%</span>
+                  <span class="share-mw" id="share-mw-${r.id}"></span>
                 </div>
                 ${r.profile ? `
                 <div class="reactor-profile" id="profile-${r.id}">
@@ -181,6 +182,29 @@ const Reactors = (() => {
     state.computed.nuclearCapacityMW = fissionMW + fusionMW;
   }
 
+  function updateDemandLink(state) {
+    const el = document.getElementById('demand-link-mw');
+    if (el) {
+      const newCapacity = Math.max(0, (state.computed && state.computed.totalDemandMW || SG_BASELINE.peakDemandMW) - SG_BASELINE.peakDemandMW);
+      el.textContent = formatNum(newCapacity);
+    }
+  }
+
+  function updateShareMW(state) {
+    const totalDemand = (state.computed && state.computed.totalDemandMW) || SG_BASELINE.peakDemandMW;
+    const newCapacity = Math.max(0, totalDemand - SG_BASELINE.peakDemandMW);
+    const ids = Object.keys(state.selectedReactors);
+    const totalShareRaw = ids.reduce((s, id) => s + (state.selectedReactors[id] || 0), 0);
+    const totalShare = totalShareRaw || 1;
+
+    ids.forEach(id => {
+      const share = (state.selectedReactors[id] || 0) / totalShare;
+      const mw = Math.round(newCapacity * share);
+      const el = document.getElementById(`share-mw-${id}`);
+      if (el) el.textContent = `≈ ${formatNum(mw)} MW`;
+    });
+  }
+
   function updateSummary(state) {
     const c = state.computed;
     const el = document.getElementById('reactor-summary');
@@ -191,6 +215,11 @@ const Reactors = (() => {
         <span class="summary-label">Select reactors above</span></div>`;
       return;
     }
+
+    const coveragePercent = c.newCapacityMW > 0
+      ? Math.round(c.nuclearCapacityMW / c.newCapacityMW * 100)
+      : 0;
+    const coverageColor = coveragePercent >= 95 ? 'green' : coveragePercent >= 50 ? 'amber' : 'red';
 
     el.innerHTML = `
       <div class="summary-item">
@@ -204,6 +233,10 @@ const Reactors = (() => {
       <div class="summary-item">
         <span class="summary-value amber">${formatNum(c.newCapacityMW)}</span>
         <span class="summary-label">Demand to Meet (MW)</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-value ${coverageColor}">${coveragePercent}%</span>
+        <span class="summary-label">Demand Covered</span>
       </div>
       <div class="summary-item">
         <span class="summary-value purple">${c.totalFootprintHa.toFixed(1)} ha</span>
@@ -238,7 +271,9 @@ const Reactors = (() => {
 
   function update(state) {
     calculate(state);
+    updateDemandLink(state);
     updateSummary(state);
+    updateShareMW(state);
     updatePictograph(state);
   }
 
